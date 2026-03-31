@@ -1,0 +1,2 @@
+public class OfertaProdus {
+}
