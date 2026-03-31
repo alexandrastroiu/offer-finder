@@ -1,0 +1,17 @@
+# Default ignored files
+#/shelf/
+#/workspace.xml
+# --- IntelliJ IDEA ---
+.idea/
+*.iws
+*.iml
+*.ipr
+*.iml
+*.xml
+out/
+
+# --- OS Specific ---
+.DS_Store
+
+# --- Log Files ---
+*.log
