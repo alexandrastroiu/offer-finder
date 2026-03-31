@@ -1,2 +1,42 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Meniu {
+    private int id;
+    private List<Produs> produse;
+
+    // constructori
+    public Meniu() {}
+
+    public Meniu(int id, List<Produs> produse) {
+        this.id = id;
+        this.produse = produse;
+    }
+
+    public Meniu(int id) {
+        this.id = id;
+        this.produse = new ArrayList<>();
+    }
+
+    // getters si setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Produs> getProduse() {
+        return produse;
+    }
+
+    public void setProduse(List<Produs> produse) {
+        this.produse = produse;
+    }
+
+
+    // metode
+
+
 }
