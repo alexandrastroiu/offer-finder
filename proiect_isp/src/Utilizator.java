@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.nio.charset.StandardCharsets;
 
 public class Utilizator {
     // Atribute
@@ -91,7 +92,7 @@ public class Utilizator {
 
                     try {
                         MessageDigest message = MessageDigest.getInstance("SHA-256");
-                        byte[] hashBytes = message.digest(parolaIntrodusa.getBytes());
+                        byte[] hashBytes = message.digest(parolaIntrodusa.getBytes(StandardCharsets.UTF_8));
                         StringBuilder sb = new StringBuilder();
 
                         for (byte b : hashBytes) {
