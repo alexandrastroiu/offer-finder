@@ -2,6 +2,7 @@ public class Utilizator {
     // Atribute
     private int id;
     private String email, numeUtilizator, parola, rol;
+    private boolean esteAutentificat = false;
 
     // Getters, Setters
     public int getId() {
@@ -65,4 +66,14 @@ public class Utilizator {
 
     // Metode
     // Autentificare
+    // Deconectare
+    public void deconectare() {
+        System.out.println("Deconectarea a avut loc cu succes.");
+        this.esteAutentificat = false;
+        this.id = 0;
+        this.numeUtilizator = null;
+        this.email = null;
+        this.parola = null;
+        this.rol = null;
+    }
 }
