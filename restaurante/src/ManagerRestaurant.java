@@ -141,8 +141,35 @@ public class ManagerRestaurant
     }
 
     // modifica meniu
-
-
-
+    public void modificaMeniu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Introduceti numarul corespunzator optiunii dvs.");
+        System.out.println("1. Adaugare produs");
+        System.out.println("2. Eliminare produs");
+        int optiune = scanner.nextInt();
+        if(optiune == 1) {
+            System.out.println("Introduceti denumirea noului produs");
+            String nume = scanner.next();
+            System.out.println("Introduceti pretul noului produs");
+            float pret = scanner.nextFloat();
+            System.out.println("Introduceti caloriile noului produs");
+            float calorii = scanner.nextFloat();
+            System.out.println("Introduceti o scurta descriere a noului produs");
+            String descriere = scanner.next();
+            Produs produsNou = new Produs(this.restaurant.getMeniu().getProduse().size(), nume, pret, descriere, calorii);
+            this.restaurant.getMeniu().adaugaProdus(produsNou);
+            System.out.println("Produsul a fost adaugat");
+        }
+        else if(optiune == 2) {
+            this.restaurant.getMeniu().afisareMeniu();
+            System.out.println("Introduceti numarul corespunzator produsului pe care doriti sa il eliminati");
+            int prodId = scanner.nextInt() - 1;
+            this.restaurant.getMeniu().eliminaProdusId(prodId);
+            System.out.println("Produsul a fost elimiat");
+        }
+        else {
+            System.out.println("Nu exista aceasta optiune. Reluati procesul");
+        }
+    }
 
 }
