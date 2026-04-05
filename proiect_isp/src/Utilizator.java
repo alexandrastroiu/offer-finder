@@ -98,7 +98,7 @@ public class Utilizator {
                             sb.append(String.format("%02x", b));
                         }
 
-                        parolaHashIntrodusa = sb.toString();
+                        String parolaHashIntrodusa = sb.toString();
                     } catch (NoSuchAlgorithmException e) {
                         System.out.println("Eroare la hash-uirea parolei introduse.");
                         br.close();
@@ -111,7 +111,7 @@ public class Utilizator {
                         this.numeUtilizator = username;
                         this.parola = parolaHash;
                         this.rol = rolUtilizator;
-                        this.autentificat = true;
+                        this.esteAutentificat = true;
                         br.close();
                         return true;
                     }
