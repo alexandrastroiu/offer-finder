@@ -6,12 +6,8 @@ public class OfertaCombo extends Oferta{
 
     // constructori
     public  OfertaCombo() {}
-    public OfertaCombo(float pretCombo, List<Produs> produseParticipante) {
-        this.pretCombo = pretCombo;
-        this.produseParticipante = produseParticipante;
-    }
-
-    public OfertaCombo(float pretCombo) {
+    public OfertaCombo(int id, String denumire, float pretCombo) {
+        super(id, denumire);
         this.pretCombo = pretCombo;
         this.produseParticipante = new ArrayList<>();
     }
