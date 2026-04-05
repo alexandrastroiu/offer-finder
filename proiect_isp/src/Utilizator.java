@@ -1,3 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class Utilizator {
     // Atribute
     private int id;
@@ -65,7 +71,60 @@ public class Utilizator {
     }
 
     // Metode
+
     // Autentificare
+    // Consideram ca datele utilizatorilor se afla intr-un fisier de tip CSV
+    public boolean autentificare(String usernameIntrodus, String parolaIntrodusa, String fisier) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fisier));
+            String linie;
+
+            // Citeste linie cu linie din fisierul CSV
+            while ((linie = br.readLine()) != null) {
+                String[] dateUtilizator = linie.split(",");
+                if (dateUtilizator.length == 5) {
+                    int idUtilizator = Integer.parseInt(dateUtilizator[0]);
+                    String emailUtilizator = dateUtilizator[1];
+                    String username = dateUtilizator[2];
+                    String parolaHash = dateUtilizator[3];
+                    String rolUtilizator = dateUtilizator[4];
+
+                    try {
+                        MessageDigest message = MessageDigest.getInstance("SHA-256");
+                        byte[] hashBytes = message.digest(parolaIntrodusa.getBytes());
+                        StringBuilder sb = new StringBuilder();
+
+                        for (byte b : hashBytes) {
+                            sb.append(String.format("%02x", b));
+                        }
+
+                        parolaHashIntrodusa = sb.toString();
+                    } catch (NoSuchAlgorithmException e) {
+                        System.out.println("Eroare la hash-uirea parolei introduse.");
+                        br.close();
+                        return false;
+                    }
+
+                    if (username.equals(usernameIntrodus) && parolaHash.equals(parolaHashIntrodusa)) {
+                        this.id = idUtilizator;
+                        this.email = emailUtilizator;
+                        this.numeUtilizator = username;
+                        this.parola = parolaHash;
+                        this.rol = rolUtilizator;
+                        this.autentificat = true;
+                        br.close();
+                        return true;
+                    }
+                }
+            }
+            br.close();
+        }
+        catch (IOException e) {
+            System.out.println("A avut loc o eroare in timpul autentificarii.");
+        }
+        return false;
+    }
+
     // Deconectare
     public void deconectare() {
         System.out.println("Deconectarea a avut loc cu succes.");
