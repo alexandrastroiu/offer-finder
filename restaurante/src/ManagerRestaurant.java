@@ -31,7 +31,6 @@ public class ManagerRestaurant
         this.restaurant = restaurant;
     }
 
-
     // metode
 
     // adauga oferta
@@ -127,10 +126,19 @@ public class ManagerRestaurant
     }
 
     // actualizeaza pret
-    
-
-
-
+    public void actualizeazaPret() {
+        Scanner scanner = new Scanner(System.in);
+        this.restaurant.getMeniu().afisareMeniu();
+        System.out.println("Introduceti numarul corespunzator produsului al carui pret doriti sa il modificati");
+        int prodId = scanner.nextInt() - 1;
+        System.out.println("Nume produs " + this.restaurant.getMeniu().getProduse().get(prodId).getDenumire() +
+                           " pret vechi: " + this.restaurant.getMeniu().getProduse().get(prodId).getPret());
+        System.out.println("Introduceti noul pret: ");
+        float pretNou = scanner.nextFloat();
+        this.restaurant.getMeniu().getProduse().get(prodId).setPret(pretNou);
+        System.out.println("Nume produs " + this.restaurant.getMeniu().getProduse().get(prodId).getDenumire() +
+                           " pret nou: " + this.restaurant.getMeniu().getProduse().get(prodId).getPret());
+    }
 
     // modifica meniu
 
