@@ -92,6 +92,14 @@ public class Restaurant {
         this.oferteValide = oferteValide;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     // metode
 
     // afisare oferte
