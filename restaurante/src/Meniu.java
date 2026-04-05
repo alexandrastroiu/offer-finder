@@ -8,11 +8,6 @@ public class Meniu {
     // constructori
     public Meniu() {}
 
-    public Meniu(int id, List<Produs> produse) {
-        this.id = id;
-        this.produse = produse;
-    }
-
     public Meniu(int id) {
         this.id = id;
         this.produse = new ArrayList<>();
@@ -35,8 +30,30 @@ public class Meniu {
         this.produse = produse;
     }
 
-
     // metode
 
+    // adauga produs
+    public void adaugaProdus(Produs produs) {
+        this.produse.add(produs);
+    }
+
+    // elimina produs dupa nume
+    public void eliminaProdusNume(String nume) {
+        this.produse.removeIf(p -> (p.getDenumire().equals(nume)));
+    }
+
+    // elimina produs dupa id
+    public void eliminaProdusId(int id) {
+        this.produse.remove(id);
+    }
+
+    // afiseaza meniu
+    public void afisareMeniu() {
+        System.out.println("Meniu: ");
+        for(int i = 0; i < this.produse.size(); i ++) {
+            System.out.println((i + 1) + ". " + this.produse.get(i).getDenumire() + "..........................." + this.produse.get(i).getPret());
+        }
+        System.out.println("Pofta buna!");
+    }
 
 }
