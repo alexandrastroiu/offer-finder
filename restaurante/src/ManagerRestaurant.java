@@ -43,21 +43,28 @@ public class ManagerRestaurant {
                 this.restaurant.getMeniu().afisareMeniu();
                 int idProd = scanner.nextInt() - 1;
                 System.out.println("Ce denumire doriti sa aiba oferta?");
-                String nume = scanner.next();
-                OfertaProdus ofertaProdus = new OfertaProdus(this.restaurant.getOferteValide().size(), nume, reducere);
+                String numeOfertaProdus = scanner.next();
+                OfertaProdus ofertaProdus = new OfertaProdus(this.restaurant.getOferteValide().size(), numeOfertaProdus, reducere);
                 ofertaProdus.setProdus(this.restaurant.getMeniu().getProduse().get(idProd));
                 this.restaurant.adaugareOferta(ofertaProdus);
                 break;
 
             case 3:
+                System.out.println("Ce pret doriti sa aiba oferta de tip combo?");
+                float pret = scanner.nextFloat();
+                System.out.println("Ce denumire doriti sa aiba oferta?");
+                String numeOfertaCombo = scanner.next();
+                OfertaCombo ofertaCombo = new OfertaCombo(this.restaurant.getOferteValide().size(), numeOfertaCombo, pret);
                 System.out.println("Cate produse doriti sa aiba oferta de tip combo?");
                 int nrProd = scanner.nextInt();
                 System.out.println("Adaugati produsele: ");
                 this.restaurant.getMeniu().afisareMeniu();
                 for(int i = 0; i < nrProd; i ++) {
                     System.out.println("Ce produs doriti sa adaugati in oferta de tip combo? (Introduceti numarul corespunzator)");
-                    
+                    int idP = scanner.nextInt() - 1;
+                    ofertaCombo.adaugareProdus(this.restaurant.getMeniu().getProduse().get(idP));
                 }
+                this.restaurant.adaugareOferta(ofertaCombo);
                 break;
 
             default :
