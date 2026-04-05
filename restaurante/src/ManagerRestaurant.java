@@ -1,18 +1,35 @@
 import java.util.Scanner;
 
 import java.util.Scanner;
-public class ManagerRestaurant {
+public class ManagerRestaurant
+// extends Utilizator
+{
     private Restaurant restaurant;
 
-    // constructor
+    // constructori
     public ManagerRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 
+//    public ManagerRestaurant() {
+//        super();
+//    }
+//
+//    public ManagerRestaurant(int id, String email, String numeUtilizator, String parola, String rol, Restaurant restaurant) {
+//        super(id, email, numeUtilizator, parola, rol);
+//        this.restaurant = restaurant;
+//    }
+
+
     // getters si setters
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
 
-
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 
 
     // metode
@@ -68,10 +85,7 @@ public class ManagerRestaurant {
                 break;
 
             default :
-                System.out.println("Introduceti o optiune valida (1, 2 sau 3)");
-                System.out.println("1. Reducere pentru tot meniul");
-                System.out.println("2. Reducere pentru un produs anume");
-                System.out.println("3. Oferta combo");
+                System.out.println("Nu ati introdus o optiune valida (1, 2 sau 3). Reluati procesul.");
                 break;
 
         }
@@ -83,19 +97,37 @@ public class ManagerRestaurant {
         this.restaurant.afisareOferte();
         System.out.println("Introduceti denumirea ofertei pe care doriti sa o eliminati");
         String nume = scanner.next();
-        this.restaurant.eleminareOfertaNume(nume);
-        System.out.println("Oferta " + nume + " nu mai este valida");
+        if(this.restaurant.getOferteValide().stream().filter(oferta -> (oferta.getDenumire().equals(nume))).findAny().orElse(null) != null) {
+            this.restaurant.eleminareOfertaNume(nume);
+            System.out.println("Oferta " + nume + " nu mai este valida");
+        }
+        else {
+            System.out.println("Nu exista aceasta oferta. Reluati procesul");
+        }
     }
 
-
     // actualizeaza program
-
-
-
-
+    public void actualizeazaProgram() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Introduceti numarul corespunzator optiunii dvs. (ex.: 1, 2)");
+        System.out.println("1. Actualizare ora deschidere");
+        System.out.println("2. Actualizare ora inchidere");
+        int optiune = scanner.nextInt();
+        System.out.println("Introduceti noul program (format: ora.minut)");
+        float ora = scanner.nextFloat();
+        if(optiune == 1) {
+            this.restaurant.setOraDeshidere(ora);
+        }
+        else if(optiune == 2) {
+            this.restaurant.setOraInchidere(ora);
+        }
+        else {
+            System.out.println("Nu exista aceasta optiune. Reluati procesul");
+        }
+    }
 
     // actualizeaza pret
-
+    
 
 
 
