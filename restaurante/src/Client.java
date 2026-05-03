@@ -54,7 +54,7 @@ public class Client extends Utilizator{
     }
 
     // Filtreaza oferte
-    public List<Oferta> filtreazaOferte(List<Oferta> oferte, String criteriu, int prag) {
+    public List<Oferta> filtreazaOferte(List<Oferta> oferte, String criteriu, float prag) {
         if (criteriu.equalsIgnoreCase("pret")) {
             return this.comparator.filtrarePret();
         }
@@ -63,6 +63,9 @@ public class Client extends Utilizator{
         }
         else if (criteriu.equalsIgnoreCase("procent reducere")) {
             return this.comparator.filtrareProcentReducere(oferte, prag);
+        }
+        else if (criteriu.equalsIgnoreCase("recenzii")) {
+            return this.comparator.filtrareRecenzii();
         }
     }
 }
