@@ -82,4 +82,47 @@ public class Comparator {
         }
         return null;
     }
+
+    // Cauta un produs in functie de nume
+    public List<Produs> cautaProdus(List <Produs> produse, String numeProdus) {
+        List<Produs> produseDisponibile = new ArrayList<>();
+
+        for (Produs produs : produse) {
+            String numeProdusCurent = produs.getDenumire();
+            if (numeProdusCurent.equalsIgnoreCase(numeProdus)) {
+                produseDisponibile.add(produs);
+            }
+        }
+        return produseDisponibile;
+    }
+
+    // Cauta un restaurant in functie de nume
+    public List<Restaurant> cautaRestaurant(List <Restaurant> restaurante, String numeRestaurant) {
+        List<Restaurant> restauranteDisponibile = new ArrayList<>();
+
+        for (Restaurant restaurant : restaurante) {
+            String numeRestaurantCurent = restaurant.getDenumire();
+            if (numeRestaurantCurent.equalsIgnoreCase(numeRestaurant)) {
+                restauranteDisponibile.add(restaurant);
+            }
+        }
+        return  restauranteDisponibile;
+    }
+
+    // Filtreaza oferte
+    public List<Oferta> filtreazaOferte(List<Oferta> oferte, String criteriu, float prag) {
+        if (criteriu.equalsIgnoreCase("pret")) {
+            return this.filtrarePret();
+        }
+        else if (criteriu.equalsIgnoreCase("distanta")) {
+            return this.filtrareDistanta();
+        }
+        else if (criteriu.equalsIgnoreCase("procent reducere")) {
+            return this.filtrareProcentReducere(oferte, prag);
+        }
+        else if (criteriu.equalsIgnoreCase("recenzii")) {
+            return this.filtrareRecenzii();
+        }
+    }
+
 }
