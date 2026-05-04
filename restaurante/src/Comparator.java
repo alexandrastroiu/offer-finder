@@ -111,16 +111,23 @@ public class Comparator {
 
     // Filtreaza oferte
     public List<Oferta> filtreazaOferte(List<Oferta> oferte, String criteriu, float prag) {
+        if (criteriu == null) {
+            throw new IllegalArgumentException("Criteriu invalid: null")
+        }
+
         if (criteriu.equalsIgnoreCase("pret")) {
             return this.filtrarePret();
         }
-        else if (criteriu.equalsIgnoreCase("distanta")) {
+
+        if (criteriu.equalsIgnoreCase("distanta")) {
             return this.filtrareDistanta();
         }
-        else if (criteriu.equalsIgnoreCase("procent reducere")) {
+        
+        if (criteriu.equalsIgnoreCase("procent reducere")) {
             return this.filtrareProcentReducere(oferte, prag);
         }
-        else if (criteriu.equalsIgnoreCase("recenzii")) {
+        
+        if (criteriu.equalsIgnoreCase("recenzii")) {
             return this.filtrareRecenzii();
         }
 
