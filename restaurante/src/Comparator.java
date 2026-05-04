@@ -123,6 +123,8 @@ public class Comparator {
         else if (criteriu.equalsIgnoreCase("recenzii")) {
             return this.filtrareRecenzii();
         }
+
+        throw new IllegalArgumentException("Criteriu invalid: " + criteriu);
     }
 
 }
