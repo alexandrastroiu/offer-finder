@@ -23,6 +23,11 @@ public class Client extends Utilizator{
         this.comparator = comparator;
     }
 
+    // Getter
+    public Comparator getComparator() {
+        return comparator;
+    }
+
     public void afiseazaDateClient() {
         System.out.println("Date Client: ");
         System.out.println("Nume Utilizator Client: " + getNumeUtilizator());
