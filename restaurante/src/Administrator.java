@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.Comparator;
 import java.util.stream.Collectors;
 
 // Relatie de generalizare intre clasele Administrator si Utilizator (mostenire)
@@ -77,9 +76,15 @@ public class Administrator extends Utilizator{
         }
 
         System.out.println("\nTop 10 restaurante dupa nota:");
-        List<Restaurant> topRestaurante = restaurante.stream().sorted(Comparator.comparing(Restaurant::getNotaMedie).reversed()).limit(10).collect(Collectors.toList());
+        List<Restaurant> topRestaurante = getTopRestaurante(restaurante);
         for (int i = 0; i < topRestaurante.size(); i++) {
             System.out.println((i + 1) + ". " + topRestaurante.get(i).getDenumire() + " | " + topRestaurante.get(i).getNotaMedie());
         }
     }
+
+    // Returneaza lista cu top 10 restaurante dupa nota
+    public List<Restaurant> getTopRestaurante(List<Restaurant> restaurante) {
+        return restaurante.stream().sorted(java.util.Comparator.comparing(Restaurant::getNotaMedie).reversed()).limit(10).collect(Collectors.toList());
+    }
+
 }
