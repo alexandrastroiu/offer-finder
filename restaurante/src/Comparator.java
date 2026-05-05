@@ -15,36 +15,36 @@ public class Comparator {
 
     public Comparator(List<Restaurant> restaurante) {
         this.restaurante = restaurante;
-        this.listaOferte = extrageToateOfertele(restaurante);
+        this.listaOferte = extrageToateOfertele();
     }
-
 
     public List<Restaurant> getRestaurante() { return restaurante; }
 
     public void setRestaurante(List<Restaurant> restaurante) {
         this.restaurante = restaurante;
-        this.listaOferte = extrageToateOfertele(restaurante);
+        this.listaOferte = extrageToateOfertele();
     }
 
     public List<Oferta> getListaOferte() { return listaOferte; }
 
-    public void setListaOferte(List<Oferta> listaOferte) { this.listaOferte = listaOferte; }
+    public void setListaOferte(List<Oferta> listaOferte) {
+        this.listaOferte = listaOferte;
+    }
 
-
-    public List<Restaurant> filtrareDistanta(List<Restaurant> lista, float distantaMax) {
-        return lista.stream()
+    public List<Restaurant> filtrareDistanta(float distantaMax) {
+        return this.restaurante.stream()
                 .filter(r -> r.getDistanta() <= distantaMax)
                 .collect(Collectors.toList());
     }
 
-    public List<Restaurant> filtrareRecenzii(List<Restaurant> lista, float notaMinima) {
-        return lista.stream()
+    public List<Restaurant> filtrareRecenzii(float notaMinima) {
+        return this.restaurante.stream()
                 .filter(r -> r.getNotaMedie() >= notaMinima)
                 .collect(Collectors.toList());
     }
 
-    public List<Oferta> filtrareProcentReducere(List<Oferta> oferte, int pragMinim) {
-        return oferte.stream()
+    public List<Oferta> filtrareProcentReducere(int pragMinim) {
+        return this.listaOferte.stream()
                 .filter(o -> {
                     if (o instanceof OfertaMeniu) return ((OfertaMeniu) o).getReducere() >= pragMinim;
                     if (o instanceof OfertaProdus) return ((OfertaProdus) o).getReducere() >= pragMinim;
@@ -53,7 +53,8 @@ public class Comparator {
                 .collect(Collectors.toList());
     }
 
-public List<Oferta> filtrarePret(List<Oferta> oferte, float pretMax) {
+    public List<Oferta> filtrarePret(float pretMax) {
+        List<Oferta> oferte = this.listaOferte;
         return oferte.stream()
                 .filter(o -> {
                     if (o instanceof OfertaMeniu)
@@ -95,24 +96,123 @@ public List<Oferta> filtrarePret(List<Oferta> oferte, float pretMax) {
         return null;
     }
 
-
-    public List<Oferta> comparaOferte(float distantaMax, float notaMin, int reducereMin, float pretMax) {
-        List<Restaurant> rApropiate = filtrareDistanta(this.restaurante, distantaMax);
-        List<Restaurant> rBune = filtrareRecenzii(rApropiate, notaMin);
-        List<Oferta> oferteColectate = extrageToateOfertele(rBune);
-        List<Oferta> oferteReduse = filtrareProcentReducere(oferteColectate, reducereMin);
-        return filtrarePret(oferteReduse, pretMax);
+    public float getPretDinOferta(Oferta oferta) {
+        float pret;
+        if(oferta instanceof OfertaProdus) pret = ((OfertaProdus) oferta).getPretRedus();
+        else if(oferta instanceof OfertaCombo) pret = ((OfertaCombo) oferta).getPretCombo();
+        else pret = (float) -1;
+        return pret;
     }
 
-
-    private List<Oferta> extrageToateOfertele(List<Restaurant> listaRestaurante) {
-        List<Oferta> toate = new ArrayList<>();
-        if (listaRestaurante == null) return toate;
-        for (Restaurant r : listaRestaurante) {
-            if (r.getOferteValide() != null) {
-                toate.addAll(r.getOferteValide());
-            }
+    public String priceToString(Oferta oferta) {
+        if(getPretDinOferta(oferta) > 0) {
+            return String.valueOf(getPretDinOferta(oferta));
         }
-        return toate;
+        else {
+            return "-";
+        }
+    }
+
+    public int getReducereDinOferta(Oferta oferta) {
+        int reducere;
+        if(oferta instanceof OfertaProdus) reducere = ((OfertaProdus) oferta).getReducere();
+        else if(oferta instanceof OfertaMeniu) reducere = ((OfertaMeniu) oferta).getReducere();
+        else reducere = -1;
+        return reducere;
+    }
+
+    public String reducereToString(Oferta oferta) {
+        if(getReducereDinOferta(oferta) > 0) {
+            return String.valueOf(getReducereDinOferta(oferta));
+        }
+        else {
+            return "-";
+        }
+    }
+
+    public void comparaOferte(Restaurant r1, Oferta o1, Restaurant r2, Oferta o2) {
+        int totalO1 = 0, totalO2 = 0;
+
+        String[] headers = {"Distanta", "Pret", "Reducere", "Recenzii"};
+        String dist1 = String.valueOf(r1.getDistanta());
+        String dist2 = String.valueOf(r2.getDistanta());
+
+        String rec1 = String.valueOf(r1.getNotaMedie());
+        String rec2 = String.valueOf(r2.getNotaMedie());
+
+        String pret1 = priceToString(o1);
+        String pret2 = priceToString(o2);
+
+        String red1 = reducereToString(o1);
+        String red2 = reducereToString(o2);
+
+        String rDist;
+        if(r1.getDistanta() > r2.getDistanta()) {
+            rDist = "Oferta 1";
+            totalO1 ++;
+        }
+        else {
+            rDist = "Oferta 2";
+            totalO2 ++;
+        }
+
+        String rPret;
+        if(getPretDinOferta(o1) < 0 || getPretDinOferta(o2) < 0) rPret = "-";
+        else if (getPretDinOferta(o1) < getPretDinOferta(o2)) {
+            rPret = "Oferta 1";
+            totalO1 ++;
+        }
+        else {
+            rPret = "Oferta 2";
+            totalO2 ++;
+        }
+
+        String rRed;
+        if(getReducereDinOferta(o1) < 0 || getReducereDinOferta(o2) < 0) rRed = "-";
+        else if (getReducereDinOferta(o1) < getReducereDinOferta(o2)) {
+            rRed = "Oferta 1";
+            totalO1 ++;
+        }
+        else {
+            rRed = "Oferta 2";
+            totalO2 ++;
+        }
+
+        String rRec;
+        if(r1.getNotaMedie() > r2.getNotaMedie()) {
+            rRec = "Oferta 1";
+            totalO1 ++;
+        }
+        else {
+            rRec = "Oferta 2";
+            totalO2 ++;
+        }
+
+        String[][] data = {
+                {dist1, pret1, red1, rec1},
+                {dist2, pret2, red2, rec2},
+                {rDist, rPret, rRed, rRec}
+        };
+
+        System.out.printf("%-5s %-10s %-5s%n", headers[0], headers[1], headers[2], headers[3]);
+
+        for (String[] row : data) {
+            System.out.printf("%-5s %-10s %-5s%n", row[0], row[1], row[2], row[3]);
+        }
+
+        if(totalO2 > totalO1)
+            System.out.println("Oferta 2 este mai avantajoasa");
+        else System.out.println("Oferta 1 este mai avantajoasa");
+    }
+
+    private List<Oferta> extrageToateOfertele() {
+        List<Oferta> toateOfertele = new ArrayList<>();
+        if (this.restaurante == null) return toateOfertele;
+        for (Restaurant r : this.restaurante) {
+            if (r.getOferteValide() != null) toateOfertele.addAll(r.getOferteValide());
+        }
+        return toateOfertele;
     }
 }
+
+
