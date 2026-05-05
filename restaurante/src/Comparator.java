@@ -15,7 +15,7 @@ public class Comparator {
 
     public Comparator(List<Restaurant> restaurante) {
         this.restaurante = restaurante;
-        this.listaOferte = extraeToateOfertele(restaurante);
+        this.listaOferte = extrageToateOfertele(restaurante);
     }
 
 
@@ -23,13 +23,12 @@ public class Comparator {
 
     public void setRestaurante(List<Restaurant> restaurante) {
         this.restaurante = restaurante;
-        this.listaOferte = extraeToateOfertele(restaurante); // CRITIC: Actualizam si ofertele!
+        this.listaOferte = extrageToateOfertele(restaurante);
     }
 
     public List<Oferta> getListaOferte() { return listaOferte; }
 
     public void setListaOferte(List<Oferta> listaOferte) { this.listaOferte = listaOferte; }
-}
 
 
     public List<Restaurant> filtrareDistanta(List<Restaurant> lista, float distantaMax) {
@@ -54,12 +53,24 @@ public class Comparator {
                 .collect(Collectors.toList());
     }
 
-    public List<Oferta> filtrarePret(List<Oferta> oferte, float pretMax) {
+public List<Oferta> filtrarePret(List<Oferta> oferte, float pretMax) {
         return oferte.stream()
-                .filter(o -> o.getPret() <= pretMax)
+                .filter(o -> {
+                    if (o instanceof OfertaMeniu)
+                    {
+                        OfertaMeniu ofertaMeniu = (OfertaMeniu) o;
+                        int size = ofertaMeniu.getMeniu().getProduse().size();
+                        for(int i = 0; i < size; i ++) {
+                            if(ofertaMeniu.getMeniu().getProduse().get(i).getPret() <= pretMax) return true;
+                            else return false;
+                        }
+                    }
+                    if (o instanceof OfertaProdus) return ((OfertaProdus) o).getPretRedus() <= pretMax;
+                    if (o instanceof OfertaCombo) return ((OfertaCombo) o).getPretCombo() <= pretMax;
+                    return true;
+                })
                 .collect(Collectors.toList());
     }
-
 
     public List<Restaurant> cautaRestaurant(String nume) {
         return restaurante.stream()
@@ -70,7 +81,7 @@ public class Comparator {
     public List<Produs> cautaProdus(String numeProdus) {
         List<Produs> gasite = new ArrayList<>();
         for (Restaurant r : restaurante) {
-            for (Produs p : r.getListaProduse()) {
+            for (Produs p : r.getMeniu().getProduse()) {
                 if (p.getDenumire().equalsIgnoreCase(numeProdus)) gasite.add(p);
             }
         }
@@ -88,20 +99,20 @@ public class Comparator {
     public List<Oferta> comparaOferte(float distantaMax, float notaMin, int reducereMin, float pretMax) {
         List<Restaurant> rApropiate = filtrareDistanta(this.restaurante, distantaMax);
         List<Restaurant> rBune = filtrareRecenzii(rApropiate, notaMin);
-        List<Oferta> oferteColectate = extraeToateOfertele(rBune);
+        List<Oferta> oferteColectate = extrageToateOfertele(rBune);
         List<Oferta> oferteReduse = filtrareProcentReducere(oferteColectate, reducereMin);
         return filtrarePret(oferteReduse, pretMax);
     }
 
 
-    private List<Oferta> extraeToateOfertele(List<Restaurant> listaRestaurante) {
+    private List<Oferta> extrageToateOfertele(List<Restaurant> listaRestaurante) {
         List<Oferta> toate = new ArrayList<>();
         if (listaRestaurante == null) return toate;
         for (Restaurant r : listaRestaurante) {
-            if (r.getOferteMeniu() != null) toate.addAll(r.getOferteMeniu());
-            if (r.getOferteProduse() != null) toate.addAll(r.getOferteProduse());
+            if (r.getOferteValide() != null) {
+                toate.addAll(r.getOferteValide());
+            }
         }
         return toate;
     }
-
-
+}
