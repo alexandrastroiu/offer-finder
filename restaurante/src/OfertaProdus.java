@@ -1,17 +1,20 @@
 public class OfertaProdus extends Oferta {
     private int reducere;
     private Produs produs;
+    private float pretRedus;
 
     // constructori
     public OfertaProdus(int reducere) {
         this.produs = new Produs();
         this.reducere = reducere;
+        this.pretRedus = this.produs.getPret() - this.reducere * this.produs.getPret() / 100;
     }
 
     public OfertaProdus(int id, String denumire, int reducere) {
         super(id, denumire);
         this.reducere = reducere;
         this.produs = new Produs();
+        this.pretRedus = this.produs.getPret() - this.reducere * this.produs.getPret() / 100;
     }
 
     // getters si setters
@@ -31,7 +34,11 @@ public class OfertaProdus extends Oferta {
         this.produs = produs;
     }
 
-    // metode
+    public float getPretRedus() {
+        return pretRedus;
+    }
+
+
 
 
 }

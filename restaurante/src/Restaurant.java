@@ -53,7 +53,7 @@ public class Restaurant {
         return distanta;
     }
 
-    public float getOraDeshidere() {
+    public float getOraDeschidere() {
         return oraDeshidere;
     }
 

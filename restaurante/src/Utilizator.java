@@ -89,6 +89,7 @@ public class Utilizator {
                     String username = dateUtilizator[2];
                     String parolaHash = dateUtilizator[3];
                     String rolUtilizator = dateUtilizator[4];
+                    String parolaHashIntrodusa = "";
 
                     try {
                         MessageDigest message = MessageDigest.getInstance("SHA-256");
@@ -99,7 +100,7 @@ public class Utilizator {
                             sb.append(String.format("%02x", b));
                         }
 
-                        String parolaHashIntrodusa = sb.toString();
+                        parolaHashIntrodusa = sb.toString();
                     } catch (NoSuchAlgorithmException e) {
                         System.out.println("Eroare la hash-uirea parolei introduse.");
                         br.close();

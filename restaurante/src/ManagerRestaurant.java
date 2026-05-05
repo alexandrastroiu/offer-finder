@@ -1,8 +1,7 @@
 import java.util.Scanner;
 
 import java.util.Scanner;
-public class ManagerRestaurant
-// extends Utilizator
+public class ManagerRestaurant extends Utilizator
 {
     private Restaurant restaurant;
 
@@ -11,14 +10,14 @@ public class ManagerRestaurant
         this.restaurant = restaurant;
     }
 
-//    public ManagerRestaurant() {
-//        super();
-//    }
-//
-//    public ManagerRestaurant(int id, String email, String numeUtilizator, String parola, String rol, Restaurant restaurant) {
-//        super(id, email, numeUtilizator, parola, rol);
-//        this.restaurant = restaurant;
-//    }
+    public ManagerRestaurant() {
+        super();
+    }
+
+    public ManagerRestaurant(int id, String email, String numeUtilizator, String parola, String rol, Restaurant restaurant) {
+        super(id, email, numeUtilizator, parola, rol);
+        this.restaurant = restaurant;
+    }
 
 
     // getters si setters
@@ -48,7 +47,7 @@ public class ManagerRestaurant
                 int procentaj = scanner.nextInt();
                 System.out.println("Ce denumire doriti sa aiba oferta?");
                 String denumire = scanner.next();
-                OfertaMeniu ofertaMeniu = new OfertaMeniu(this.restaurant.getOferteValide().size(), denumire, procentaj);
+                OfertaMeniu ofertaMeniu = new OfertaMeniu(this.restaurant.getOferteValide().size(), denumire, procentaj, restaurant.getMeniu());
                 this.restaurant.adaugareOferta(ofertaMeniu);
                 break;
 

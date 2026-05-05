@@ -1,15 +1,21 @@
+import java.util.ArrayList;
+import java.util.List;
 public class OfertaMeniu extends Oferta {
     private int reducere;
-
+    private Meniu meniu;
 
     // constructori
-    public OfertaMeniu(int reducere) {
+    public OfertaMeniu(int reducere, Meniu meniu) {
         this.reducere = reducere;
+        this.meniu = meniu;
+        calculMeniuRedus();
     }
 
-    public OfertaMeniu(int id, String denumire, int reducere) {
+    public OfertaMeniu(int id, String denumire, int reducere, Meniu meniu) {
         super(id, denumire);
         this.reducere = reducere;
+        this.meniu = meniu;
+        calculMeniuRedus();
     }
 
     // getters si setters
@@ -21,8 +27,29 @@ public class OfertaMeniu extends Oferta {
         this.reducere = reducere;
     }
 
+    public Meniu getMeniu() {
+        return meniu;
+    }
+
+    public void setMeniu(Meniu meniu) {
+        this.meniu = meniu;
+    }
+
     // metode
 
+    public void calculMeniuRedus() {
+        int size = this.meniu.getProduse().size();
+        for(int i = 0; i < size; i ++) {
+            float pret = this.meniu.getProduse().get(i).getPret();
+            this.meniu.getProduse().get(i).setPret(pret - this.reducere * pret / 100);
+        }
+    }
 
-
+    public void calculMeniuOriginal() {
+        int size = this.meniu.getProduse().size();
+        for(int i = 0; i < size; i ++) {
+            float pretRedus = this.meniu.getProduse().get(i).getPret();
+            this.meniu.getProduse().get(i).setPret(pretRedus * (100 / (100 - this.reducere)));
+        }
+    }
 }
