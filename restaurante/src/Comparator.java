@@ -4,134 +4,112 @@ import java.util.stream.Collectors;
 
 public class Comparator {
 
-    private int idOferta1;
-    private int idOferta2;
+    private List<Oferta> listaOferte;
 
-
+    // Constructori
     public Comparator() {
+        this.listaOferte = new ArrayList<>();
     }
 
-    // Constructor cu parametri
-    public Comparator(int idOferta1, int idOferta2) {
-        this.idOferta1 = idOferta1;
-        this.idOferta2 = idOferta2;
+    public Comparator(List<Oferta> listaOferte) {
+        this.listaOferte = listaOferte;
     }
 
-
-    public int getIdOferta1() {
-        return idOferta1;
+    // Getters si Setters
+    public List<Oferta> getListaOferte() {
+        return listaOferte;
     }
 
-    public void setIdOferta1(int idOferta1) {
-        this.idOferta1 = idOferta1;
-    }
-
-    public int getIdOferta2() {
-        return idOferta2;
-    }
-
-    public void setIdOferta2(int idOferta2) {
-        this.idOferta2 = idOferta2;
+    public void setListaOferte(List<Oferta> listaOferte) {
+        this.listaOferte = listaOferte;
     }
 
 
-    public void filtrareDistanta() {
 
-        System.out.println("Filtrare dupa distanta executata.");
+    //  Filtrare dupa distanta
+    public List<Restaurant> filtrareDistanta(List<Restaurant> restaurante, float distantaMax) {
+        return restaurante.stream()
+                .filter(r -> r.getDistanta() <= distantaMax)[cite: 44]
+                .collect(Collectors.toList());
     }
 
+    //  Filtrare dupa recenzii
+    public List<Restaurant> filtrareRecenzii(List<Restaurant> restaurante, float notaMinima) {
+        return restaurante.stream()
+                .filter(r -> r.getNotaMedie() >= notaMinima)[cite: 44]
+                .collect(Collectors.toList());
+    }
+
+    //  Filtrare dupa procent de reducere
     public List<Oferta> filtrareProcentReducere(List<Oferta> oferte, int pragMinim) {
-
         return oferte.stream()
                 .filter(o -> {
-                    if (o instanceof OfertaMeniu) return ((OfertaMeniu) o).getReducere() >= pragMinim;
-                    if (o instanceof OfertaProdus) return ((OfertaProdus) o).getReducere() >= pragMinim;
+                    if (o instanceof OfertaMeniu) return ((OfertaMeniu) o).getReducere() >= pragMinim;[cite: 44]
+                    if (o instanceof OfertaProdus) return ((OfertaProdus) o).getReducere() >= pragMinim;[cite: 44]
                     return false;
                 })
                 .collect(Collectors.toList());
     }
 
-    public List<Restaurant> filtrareRecenzii(List<Restaurant> restaurante, float notaMinima) {
-
-        return restaurante.stream()
-                .filter(r -> r.getNotaMedie() >= notaMinima)
+    //  Filtrare dupa pret
+    public List<Oferta> filtrarePret(List<Oferta> oferte, float pretMax) {
+        return oferte.stream()
+                .filter(o -> {
+                    if (o instanceof OfertaCombo) return ((OfertaCombo) o).getPretCombo() <= pretMax;[cite: 44]
+                    return true;
+                })
                 .collect(Collectors.toList());
     }
 
-    public void filtrarePret() {
 
-        System.out.println("Filtrare dupa pret executata.");
+    // algoritmul de comparare
+
+    public List<Oferta> comparaOferte(List<Restaurant> restauranteDisponibile, float distantaMax, float notaMinima, int procentMinim, float pretMax) {
+
+        List<Restaurant> restauranteApropiate = filtrareDistanta(restauranteDisponibile, distantaMax);
+
+        List<Restaurant> restauranteBune = filtrareRecenzii(restauranteApropiate, notaMinima);
+
+        List<Oferta> oferteExtrase = restauranteBune.stream()
+                .flatMap(r -> r.getOferteValide().stream())
+                .collect(Collectors.toList());
+
+
+        List<Oferta> oferteCuReducere = filtrareProcentReducere(oferteExtrase, procentMinim);
+
+
+        return filtrarePret(oferteCuReducere, pretMax);
     }
 
 
-    public int comparaOferte(Oferta o1, Oferta o2) {
-
-        this.idOferta1 = o1.getId();
-        this.idOferta2 = o2.getId();
 
 
-        return Integer.compare(this.idOferta1, this.idOferta2);
-    }
-
-    public Oferta selecteazaOferta(List<Oferta> oferte, int idCautat) {
-
-        for (Oferta o : oferte) {
-            if (o.getId() == idCautat) {
+    public Oferta selecteazaOferta(int idCautat) {
+        for (Oferta o : this.listaOferte) {
+            if (o.getId() == idCautat) {[cite: 44]
                 return o;
             }
         }
         return null;
     }
 
-    // Cauta un produs in functie de nume
-    public List<Produs> cautaProdus(List <Produs> produse, String numeProdus) {
+    public List<Produs> cautaProdus(List<Produs> produse, String numeProdus) {
         List<Produs> produseDisponibile = new ArrayList<>();
-
         for (Produs produs : produse) {
-            String numeProdusCurent = produs.getDenumire();
-            if (numeProdusCurent.equalsIgnoreCase(numeProdus)) {
+            if (produs.getDenumire().equalsIgnoreCase(numeProdus)) {[cite: 44]
                 produseDisponibile.add(produs);
             }
         }
         return produseDisponibile;
     }
 
-    // Cauta un restaurant in functie de nume
-    public List<Restaurant> cautaRestaurant(List <Restaurant> restaurante, String numeRestaurant) {
+    public List<Restaurant> cautaRestaurant(List<Restaurant> restaurante, String numeRestaurant) {
         List<Restaurant> restauranteDisponibile = new ArrayList<>();
-
         for (Restaurant restaurant : restaurante) {
-            String numeRestaurantCurent = restaurant.getDenumire();
-            if (numeRestaurantCurent.equalsIgnoreCase(numeRestaurant)) {
+            if (restaurant.getDenumire().equalsIgnoreCase(numeRestaurant)) {[cite: 44]
                 restauranteDisponibile.add(restaurant);
             }
         }
-        return  restauranteDisponibile;
+        return restauranteDisponibile;
     }
-
-    // Filtreaza oferte
-    public List<Oferta> filtreazaOferte(List<Oferta> oferte, String criteriu, float prag) {
-        if (criteriu == null) {
-            throw new IllegalArgumentException("Criteriu invalid: null")
-        }
-
-        if (criteriu.equalsIgnoreCase("pret")) {
-            return this.filtrarePret();
-        }
-
-        if (criteriu.equalsIgnoreCase("distanta")) {
-            return this.filtrareDistanta();
-        }
-        
-        if (criteriu.equalsIgnoreCase("procent reducere")) {
-            return this.filtrareProcentReducere(oferte, prag);
-        }
-        
-        if (criteriu.equalsIgnoreCase("recenzii")) {
-            return this.filtrareRecenzii();
-        }
-
-        throw new IllegalArgumentException("Criteriu invalid: " + criteriu);
-    }
-
 }
