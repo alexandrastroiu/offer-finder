@@ -4,43 +4,46 @@ import java.util.stream.Collectors;
 
 public class Comparator {
 
+
+    private List<Restaurant> restaurante;
     private List<Oferta> listaOferte;
 
-    // Constructori
     public Comparator() {
+        this.restaurante = new ArrayList<>();
         this.listaOferte = new ArrayList<>();
     }
 
-    public Comparator(List<Oferta> listaOferte) {
-        this.listaOferte = listaOferte;
-    }
-
-    // Getters si Setters
-    public List<Oferta> getListaOferte() {
-        return listaOferte;
-    }
-
-    public void setListaOferte(List<Oferta> listaOferte) {
-        this.listaOferte = listaOferte;
+    public Comparator(List<Restaurant> restaurante) {
+        this.restaurante = restaurante;
+        this.listaOferte = extraeToateOfertele(restaurante);
     }
 
 
+    public List<Restaurant> getRestaurante() { return restaurante; }
 
-    //  Filtrare dupa distanta
-    public List<Restaurant> filtrareDistanta(List<Restaurant> restaurante, float distantaMax) {
-        return restaurante.stream()
+    public void setRestaurante(List<Restaurant> restaurante) {
+        this.restaurante = restaurante;
+        this.listaOferte = extraeToateOfertele(restaurante); // CRITIC: Actualizam si ofertele!
+    }
+
+    public List<Oferta> getListaOferte() { return listaOferte; }
+
+    public void setListaOferte(List<Oferta> listaOferte) { this.listaOferte = listaOferte; }
+}
+
+
+    public List<Restaurant> filtrareDistanta(List<Restaurant> lista, float distantaMax) {
+        return lista.stream()
                 .filter(r -> r.getDistanta() <= distantaMax)
                 .collect(Collectors.toList());
     }
 
-    //  Filtrare dupa recenzii
-    public List<Restaurant> filtrareRecenzii(List<Restaurant> restaurante, float notaMinima) {
-        return restaurante.stream()
+    public List<Restaurant> filtrareRecenzii(List<Restaurant> lista, float notaMinima) {
+        return lista.stream()
                 .filter(r -> r.getNotaMedie() >= notaMinima)
                 .collect(Collectors.toList());
     }
 
-    //  Filtrare dupa procent de reducere
     public List<Oferta> filtrareProcentReducere(List<Oferta> oferte, int pragMinim) {
         return oferte.stream()
                 .filter(o -> {
@@ -51,65 +54,54 @@ public class Comparator {
                 .collect(Collectors.toList());
     }
 
-    //  Filtrare dupa pret
     public List<Oferta> filtrarePret(List<Oferta> oferte, float pretMax) {
         return oferte.stream()
-                .filter(o -> {
-                    if (o instanceof OfertaCombo) return ((OfertaCombo) o).getPretCombo() <= pretMax;
-                    return true;
-                })
+                .filter(o -> o.getPret() <= pretMax)
                 .collect(Collectors.toList());
     }
 
 
-    // algoritmul de comparare
-
-    public List<Oferta> comparaOferte(List<Restaurant> restauranteDisponibile, float distantaMax, float notaMinima, int procentMinim, float pretMax) {
-
-        List<Restaurant> restauranteApropiate = filtrareDistanta(restauranteDisponibile, distantaMax);
-
-        List<Restaurant> restauranteBune = filtrareRecenzii(restauranteApropiate, notaMinima);
-
-        List<Oferta> oferteExtrase = restauranteBune.stream()
-                .flatMap(r -> r.getOferteValide().stream())
+    public List<Restaurant> cautaRestaurant(String nume) {
+        return restaurante.stream()
+                .filter(r -> r.getDenumire().equalsIgnoreCase(nume))
                 .collect(Collectors.toList());
-
-
-        List<Oferta> oferteCuReducere = filtrareProcentReducere(oferteExtrase, procentMinim);
-
-
-        return filtrarePret(oferteCuReducere, pretMax);
     }
 
-
-
-
-    public Oferta selecteazaOferta(int idCautat) {
-        for (Oferta o : this.listaOferte) {
-            if (o.getId() == idCautat) {
-                return o;
+    public List<Produs> cautaProdus(String numeProdus) {
+        List<Produs> gasite = new ArrayList<>();
+        for (Restaurant r : restaurante) {
+            for (Produs p : r.getListaProduse()) {
+                if (p.getDenumire().equalsIgnoreCase(numeProdus)) gasite.add(p);
             }
+        }
+        return gasite;
+    }
+
+    public Oferta selecteazaOferta(int id) {
+        for (Oferta o : this.listaOferte) {
+            if (o.getId() == id) return o;
         }
         return null;
     }
 
-    public List<Produs> cautaProdus(List<Produs> produse, String numeProdus) {
-        List<Produs> produseDisponibile = new ArrayList<>();
-        for (Produs produs : produse) {
-            if (produs.getDenumire().equalsIgnoreCase(numeProdus)) {
-                produseDisponibile.add(produs);
-            }
-        }
-        return produseDisponibile;
+
+    public List<Oferta> comparaOferte(float distantaMax, float notaMin, int reducereMin, float pretMax) {
+        List<Restaurant> rApropiate = filtrareDistanta(this.restaurante, distantaMax);
+        List<Restaurant> rBune = filtrareRecenzii(rApropiate, notaMin);
+        List<Oferta> oferteColectate = extraeToateOfertele(rBune);
+        List<Oferta> oferteReduse = filtrareProcentReducere(oferteColectate, reducereMin);
+        return filtrarePret(oferteReduse, pretMax);
     }
 
-    public List<Restaurant> cautaRestaurant(List<Restaurant> restaurante, String numeRestaurant) {
-        List<Restaurant> restauranteDisponibile = new ArrayList<>();
-        for (Restaurant restaurant : restaurante) {
-            if (restaurant.getDenumire().equalsIgnoreCase(numeRestaurant)) {
-                restauranteDisponibile.add(restaurant);
-            }
+
+    private List<Oferta> extraeToateOfertele(List<Restaurant> listaRestaurante) {
+        List<Oferta> toate = new ArrayList<>();
+        if (listaRestaurante == null) return toate;
+        for (Restaurant r : listaRestaurante) {
+            if (r.getOferteMeniu() != null) toate.addAll(r.getOferteMeniu());
+            if (r.getOferteProduse() != null) toate.addAll(r.getOferteProduse());
         }
-        return restauranteDisponibile;
+        return toate;
     }
-}
+
+
