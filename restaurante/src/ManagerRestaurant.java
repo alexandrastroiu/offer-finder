@@ -48,7 +48,7 @@ public class ManagerRestaurant
                 int procentaj = scanner.nextInt();
                 System.out.println("Ce denumire doriti sa aiba oferta?");
                 String denumire = scanner.next();
-                OfertaMeniu ofertaMeniu = new OfertaMeniu(this.restaurant.getOferteValide().size(), denumire, procentaj);
+                OfertaMeniu ofertaMeniu = new OfertaMeniu(this.restaurant.getOferteValide().size(), denumire, procentaj, restaurant.getMeniu());
                 this.restaurant.adaugareOferta(ofertaMeniu);
                 break;
 
