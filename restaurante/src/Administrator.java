@@ -4,6 +4,8 @@ import java.util.stream.Collectors;
 
 // Relatie de generalizare intre clasele Administrator si Utilizator (mostenire)
 public class Administrator extends Utilizator{
+    // Relatie de asociatie intre clasele administrator si comparator
+    private Comparator comparator;
 
     // Constructor default
     public Administrator() {
@@ -16,6 +18,16 @@ public class Administrator extends Utilizator{
     }
 
     // Metode
+
+    // Creeaza legatura cu un obeict de tip comparator
+    public void asignareComparator(Comparator comparator) {
+        this.comparator = comparator;
+    }
+
+    // Getter
+    public Comparator getComparator() {
+        return comparator;
+    }
 
     // Adauga restaurant
     public void adaugaRestaurant(List<Restaurant> restaurante, Restaurant restaurant) {
