@@ -29,17 +29,23 @@ public class Administrator extends Utilizator{
     }
 
     // Adauga restaurant
-    public void adaugaRestaurant(List<Restaurant> restaurante, Restaurant restaurant) {
+    public void adaugaRestaurant(Restaurant restaurant) {
+        List<Restaurant> restaurante = this.comparator.getRestaurante();
+
         if (restaurant != null) {
             restaurante.add(restaurant);
+            this.comparator.setRestaurante(restaurante);
         }
     }
 
     // Sterge restaurant in functie de id
-    public boolean stergeRestaurant(List<Restaurant> restaurante, int idRestaurant) {
+    public boolean stergeRestaurant(int idRestaurant) {
+        List<Restaurant> restaurante = this.comparator.getRestaurante();
+
         for (int i = 0; i < restaurante.size(); i++) {
             if (restaurante.get(i).getId() == idRestaurant) {
                 restaurante.remove(i);
+                this.comparator.setRestaurante(restaurante);
                 return true;
             }
         }
@@ -47,10 +53,12 @@ public class Administrator extends Utilizator{
     }
 
     // Actualizeaza datele unui restaurant
-    public boolean modificaRestaurant(List<Restaurant> restaurante, int idRestaurant,
+    public boolean modificaRestaurant(int idRestaurant,
                                       String denumireNoua, String adresaNoua,
                                       float oraDeschidereNoua, float oraInchidereNoua,
                                       SpecificRestaurant tipNou, Meniu meniu, List<Oferta> oferte) {
+        List<Restaurant> restaurante = this.comparator.getRestaurante();
+
         for (Restaurant r : restaurante) {
             if (r.getId() == idRestaurant) {
                 r.setDenumire(denumireNoua);
@@ -67,7 +75,9 @@ public class Administrator extends Utilizator{
     }
 
     // Genereaza statistici despre restaurante
-    public void genereazaStatistici(List<Restaurant> restaurante) {
+    public void genereazaStatistici() {
+        List<Restaurant> restaurante = this.comparator.getRestaurante();
+        
         System.out.println("Numar total restaurante: " + restaurante.size());
 
         System.out.println("\nRestaurante disponibile: ");
@@ -76,14 +86,16 @@ public class Administrator extends Utilizator{
         }
 
         System.out.println("\nTop 10 restaurante dupa nota:");
-        List<Restaurant> topRestaurante = getTopRestaurante(restaurante);
+        List<Restaurant> topRestaurante = getTopRestaurante();
         for (int i = 0; i < topRestaurante.size(); i++) {
             System.out.println((i + 1) + ". " + topRestaurante.get(i).getDenumire() + " | " + topRestaurante.get(i).getNotaMedie());
         }
     }
 
     // Returneaza lista cu top 10 restaurante dupa nota
-    public List<Restaurant> getTopRestaurante(List<Restaurant> restaurante) {
+    public List<Restaurant> getTopRestaurante() {
+        List<Restaurant> restaurante = this.comparator.getRestaurante();
+
         return restaurante.stream().sorted(java.util.Comparator.comparing(Restaurant::getNotaMedie).reversed()).limit(10).collect(Collectors.toList());
     }
 
