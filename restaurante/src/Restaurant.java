@@ -57,7 +57,7 @@ public class Restaurant {
         return oraDeshidere;
     }
 
-    public void setOraDeshidere(float oraDeshidere) {
+    public void setOraDeschidere(float oraDeshidere) {
         this.oraDeshidere = oraDeshidere;
     }
 

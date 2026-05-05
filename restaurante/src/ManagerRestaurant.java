@@ -115,7 +115,7 @@ public class ManagerRestaurant
         System.out.println("Introduceti noul program (format: ora.minut)");
         float ora = scanner.nextFloat();
         if(optiune == 1) {
-            this.restaurant.setOraDeshidere(ora);
+            this.restaurant.setOraDeschidere(ora);
         }
         else if(optiune == 2) {
             this.restaurant.setOraInchidere(ora);
