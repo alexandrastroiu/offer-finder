@@ -263,15 +263,90 @@ public class Main {
                 scanner.nextLine();
 
                 // Identifica optiunea aleasa de utilizator
+                //TODO
                 switch (optiune) {
-                    case 1:break; //TODO
-                    case 2:break;
-                    case 3:break;
-                    case 4:break;
-                    case 5:break;
-                    case 6:break;
-                    case 7:break;
-                    default:System.out.println("Optiune invalida.");
+                    case 1:{
+                        System.out.print("Introduceti numele restaurantului: ");
+                        String numeRestaurant = scanner.nextLine();
+
+                        List<Restaurant> rezultat = client.getComparator().cautaRestaurant(numeRestaurant);
+
+                        if (rezultat.isEmpty()) {
+                            System.out.println("Restaurantul nu a fost gasit.");
+                        } else {
+                            System.out.println("Restaurant gasit:");
+                            for (Restaurant r : rezultat) {
+                                System.out.println(r.getDenumire());
+                            }
+                        }
+                        break; 
+                    }
+
+                    case 2:{
+                        System.out.print("Introduceti numele produsului: ");
+                        String numeProdus = scanner.nextLine();
+
+                        List<Produs> rezultat = client.getComparator().cautaProdus(numeProdus);
+
+                        if (rezultat.isEmpty()) {
+                            System.out.println("Produsul nu a fost gasit.");
+                        } else {
+                            for (Produs p : rezultat) {
+                                System.out.println(p.getDenumire() + " - " + p.getPret() + " lei");
+                            }
+                        }
+                        break;
+                    }
+
+                    case 3:{
+                        break;
+                    }
+
+                    case 4:{
+                        break;
+                    }
+
+                    case 5:{
+                        break;
+                    }
+
+                    case 6:{
+                        System.out.print("Nota minima: ");
+                        float notaMin = scanner.nextFloat();
+                        scanner.nextLine();
+
+                        List<Restaurant> rezultat = client.getComparator().filtrareRecenzii(notaMin);
+
+                        if (rezultat.isEmpty()) {
+                            System.out.println("Nu au fost gasite restaurante.");
+                        } else {
+                            for (Restaurant r : rezultat) {
+                                System.out.println(r.getDenumire() + " - " + r.getNotaMedie());
+                            }
+                        }
+                        break;
+                    }
+
+                    case 7:{
+                        System.out.print("Distanta maxima: ");
+                        float distMax = scanner.nextFloat();
+                        scanner.nextLine();
+
+                        List<Restaurant> rezultat = client.getComparator().filtrareDistanta(distMax);
+
+                        if (rezultat.isEmpty()) {
+                            System.out.println("Nu au fost gasite restaurante.");
+                        } else {
+                            for (Restaurant r : rezultat) {
+                                System.out.println(r.getDenumire() + " - " + r.getDistanta());
+                            }
+                        }
+                        break;
+                    }
+
+                    default:{
+                        System.out.println("Optiune invalida.");
+                    }
                 }
             }
             else if (utilizator.getRol().equalsIgnoreCase("manager")) {
