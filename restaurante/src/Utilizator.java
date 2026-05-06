@@ -129,7 +129,7 @@ public class Utilizator {
 
     // Deconectare
     public void deconectare() {
-        System.out.println("Deconectarea a avut loc cu succes.");
+        System.out.println("\nDeconectarea a avut loc cu succes.");
         this.esteAutentificat = false;
         this.id = 0;
         this.numeUtilizator = null;
