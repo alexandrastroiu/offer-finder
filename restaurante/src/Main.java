@@ -195,24 +195,45 @@ public class Main {
             new Produs(28, "Falafel", 25, "", 400)
         ));
         r11.getMeniu().setProduse(creeazaListaProduse(
-            new Produs(29, "Croissant", 15 , "", 320)
+            new Produs(29, "Croissant", 15 , "", 320),
+            new Produs(30, "Cafea Americano", 19 , "", 150)
         ));
 
         // TODO
         // Adauga oferte pentru restaurantele disponibile
-                /*
-        r1.setOferteValide();
-        r2.setOferteValide();
-        r3.setOferteValide();
-        r4.setOferteValide();
-        r5.setOferteValide();
-        r6.setOferteValide();
+              
+        r1.setOferteValide(creeazaListaOferte(
+            new OfertaCombo(1, "Combo Pizza + Paste", 50)
+        ));
+        
+        r2.setOferteValide(creeazaListaOferte(
+            new OfertaCombo(1, "Combo Pizza", 52),
+            new OfertaCombo(2, "Combo Pizza + Paste", 60),
+            new OfertaMeniu(3, "Reducere Meniu", 10, r2.getMeniu())
+        ));
+        r3.setOferteValide(creeazaListaOferte(
+            new OfertaCombo(1, "Combo Noodles", 44),
+            new OfertaMeniu(2, "Reducere Meniu", 5, r3.getMeniu())
+        ));
+        r4.setOferteValide(creeazaListaOferte(
+            new OfertaCombo(1, "Combo Burger + Cartofi", 45)
+        ));
+        r5.setOferteValide(creeazaListaOferte(
+            new OfertaMeniu(1, "Reducere Meniu", 7, r5.getMeniu())
+        ));
+        r6.setOferteValide(creeazaListaOferte(
+            new OfertaCombo(1, "Combo Burger + Cartofi", 39),
+            new OfertaMeniu(2, "Reducere Meniu", 12, r6.getMeniu())
+        ));
+        /*
         r7.setOferteValide();
         r8.setOferteValide();
         r9.setOferteValide();
         r10.setOferteValide();
-        r11.setOferteValide();
         */
+        r11.setOferteValide(creeazaListaOferte(
+            new OfertaCombo(1, "Combo Cafea + Croissant", 25)
+        ));
 
 
         restaurante.add(r1);
@@ -299,7 +320,7 @@ public class Main {
                     }
 
                     /*case 3:{ //TODO
-                    //    break;
+                      break;
                     } */
 
                     case 4:{
@@ -511,6 +532,15 @@ public class Main {
             listaProduse.add(p);
         }
         return listaProduse;
+    }
+
+        private static ArrayList<Oferta> creeazaListaOferte(Oferta... oferte) {
+        ArrayList<Oferta> listaOferte = new ArrayList<>();
+
+        for (Oferta o : oferte) {
+            listaOferte.add(o);
+        }
+        return listaOferte;
     }
 
 }
