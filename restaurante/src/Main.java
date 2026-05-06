@@ -327,9 +327,38 @@ public class Main {
                         break;
                     }
 
-                    /*case 3:{ //TODO
+                    //TODO
+                    case 3:{ 
+                      System.out.println("\nIntroduceti numele a doua restaurante: ");
+                      System.out.print("Restaurant 1: ");
+                      String numeRestaurant1 = scanner.nextLine();
+                      System.out.print("Restaurant 2: ");
+                      String numeRestaurant2 = scanner.nextLine();
+
+                      List<Restaurant> restaurant1 = client.getComparator().cautaRestaurant(numeRestaurant1);
+                      List<Restaurant> restaurant2 = client.getComparator().cautaRestaurant(numeRestaurant2);
+
+                      if (restaurant1.isEmpty() || restaurant2.isEmpty()) {
+                            System.out.println("Ofertele nu pot fi comparate.");
+                      }
+                      else {
+                        System.out.println("\nIntroduceti ID-ul a doua oferte: ");
+                        System.out.print("Oferta 1: ");
+                        int IDOferta1 = scanner.nextInt();
+                        scanner.nextLine();
+                        System.out.print("Oferta 2: ");
+                        int IDOferta2 = scanner.nextInt();
+                        scanner.nextLine();
+                        Oferta o1 = client.getComparator().selecteazaOferta(IDOferta1);
+                        Oferta o2 = client.getComparator().selecteazaOferta(IDOferta2);
+
+                        if (o1 != null && o2 != null) {
+                            client.getComparator().comparaOferte(restaurant1.get(0), o1, restaurant2.get(0), o2);
+                        }
+                      }
+
                       break;
-                    } */
+                    }
 
                     case 4:{
                         System.out.println("Optiuni Filtrare:");
