@@ -450,17 +450,42 @@ public class Main {
                 int optiune = scanner.nextInt();
                 scanner.nextLine();
 
-                /*
+                //TODO
                 switch (optiune) {
-                    case 1:break; //TODO
-                    case 2:break;
-                    case 3:break;
-                    case 4:break;
-                    case 5:break;
-                    case 6:break;
-                    default:System.out.println("Optiune invalida.");
+                    case 1:{
+                        manager.adaugareOferta();
+                        break; 
+                    }
+
+                    case 2:{
+                        manager.eliminaOferta();
+                        break;
+                    }
+
+                    case 3:{
+                        manager.actualizeazaProgram();
+                        break;
+                    }
+
+                    case 4:{
+                        manager.actualizeazaPret();
+                        break;
+                    }
+
+                    case 5:{
+                        manager.modificaMeniu();
+                        break;
+                    }
+
+                    case 6:{
+                        continuaProgram = false;
+                        break;
+                    }
+
+                    default:{
+                        System.out.println("Optiune invalida.");
+                    }
                 }
-                */
                 }
             }
             else if (utilizator.getRol().equalsIgnoreCase("administrator")) {
