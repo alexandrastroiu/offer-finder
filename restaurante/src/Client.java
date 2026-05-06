@@ -29,7 +29,7 @@ public class Client extends Utilizator{
     }
 
     public void afiseazaDateClient() {
-        System.out.println("Date Client: ");
+        System.out.println("\nDate Client: ");
         System.out.println("Nume Utilizator Client: " + getNumeUtilizator());
         System.out.println("ID Client: " + getId());
         System.out.println("Email: " + getEmail());
