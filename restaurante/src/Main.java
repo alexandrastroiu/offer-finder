@@ -239,27 +239,49 @@ public class Main {
         boolean esteAutentificat = utilizator.autentificare(numeUtilizator, parola, "../data/utilizatori.csv");
 
         if (esteAutentificat) {
-            System.out.println("\nAutentificare reusita!");
+            System.out.println("\nAutentificare reusita!\n");
 
+            // Verifica rolul utilizatorului
             if (utilizator.getRol().equalsIgnoreCase("client")) {
                 Client client = new Client(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol());
 
                 client.asignareComparator(comparator);
 
                 client.afiseazaDateClient();
+
+                System.out.println("\nOptiuni disponibile:");
+                System.out.println("1. Cauta restaurant");
+                System.out.println("2. Cauta produs");
+                System.out.println("3. Compara oferte");
+                System.out.println("4. Filtreaza oferte dupa pret");
+                System.out.println("5. Filtreaza oferte dupa procentul de reducere");
+                System.out.println("6. Filtreaza restaurante dupa recenzii");
+                System.out.println("7. Filtreaza restaurante dupa distanta\n");
             }
             else if (utilizator.getRol().equalsIgnoreCase("manager")) {
                 ManagerRestaurant manager = new ManagerRestaurant(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol(), restaurante.get(0));
 
+                System.out.println("\nOptiuni disponibile:");
+                System.out.println("1. Adauga oferta");
+                System.out.println("2. Elimina oferta");
+                System.out.println("3. Actualizeaza program");
+                System.out.println("4. Actualizeaza pret");
+                System.out.println("5. Modifica nmeniu\n");
             }
             else if (utilizator.getRol().equalsIgnoreCase("administrator")) {
                 Administrator admin = new Administrator(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol());
 
                 admin.asignareComparator(comparator);
+
+                System.out.println("\nOptiuni disponibile:");
+                System.out.println("1. Adauga restaurant");
+                System.out.println("2. Sterge restaurant");
+                System.out.println("3. Modifica Restaurant");
+                System.out.println("4. Genereaza statistici despre restaurante\n");
             }
         }
         else {
-            System.out.println("\nAutentificare esuata!");
+            System.out.println("\nAutentificare esuata!\n");
             System.out.println("Nume utilizator sau parola incorecta.");
         }
 
