@@ -257,6 +257,22 @@ public class Main {
                 System.out.println("5. Filtreaza oferte dupa procentul de reducere");
                 System.out.println("6. Filtreaza restaurante dupa recenzii");
                 System.out.println("7. Filtreaza restaurante dupa distanta\n");
+
+                System.out.print("\nAlegeti o optiune: ");
+                int optiune = scanner.nextInt();
+                scanner.nextLine();
+
+                // Identifica optiunea aleasa de utilizator
+                switch (optiune) {
+                    case 1:break; //TODO
+                    case 2:break;
+                    case 3:break;
+                    case 4:break;
+                    case 5:break;
+                    case 6:break;
+                    case 7:break;
+                    default:System.out.println("Optiune invalida.");
+                }
             }
             else if (utilizator.getRol().equalsIgnoreCase("manager")) {
                 ManagerRestaurant manager = new ManagerRestaurant(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol(), restaurante.get(0));
@@ -267,6 +283,19 @@ public class Main {
                 System.out.println("3. Actualizeaza program");
                 System.out.println("4. Actualizeaza pret");
                 System.out.println("5. Modifica nmeniu\n");
+
+                System.out.print("\nAlegeti o optiune: ");
+                int optiune = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (optiune) {
+                    case 1:break; //TODO
+                    case 2:break;
+                    case 3:break;
+                    case 4:break;
+                    case 5:break;
+                    default:System.out.println("Optiune invalida.");
+                }
             }
             else if (utilizator.getRol().equalsIgnoreCase("administrator")) {
                 Administrator admin = new Administrator(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol());
@@ -278,6 +307,18 @@ public class Main {
                 System.out.println("2. Sterge restaurant");
                 System.out.println("3. Modifica Restaurant");
                 System.out.println("4. Genereaza statistici despre restaurante\n");
+
+                System.out.print("\nAlegeti o optiune: ");
+                int optiune = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (optiune) {
+                    case 1:break; //TODO
+                    case 2:break;
+                    case 3:break;
+                    case 4:break;
+                    default:System.out.println("Optiune invalida.");
+                }
             }
         }
         else {
