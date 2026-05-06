@@ -292,7 +292,6 @@ public class Main {
                 scanner.nextLine();
 
                 // Identifica optiunea aleasa de utilizator
-                //TODO
                 switch (optiune) {
                     case 1:{
                         System.out.print("Introduceti numele restaurantului: ");
@@ -327,7 +326,6 @@ public class Main {
                         break;
                     }
 
-                    //TODO
                     case 3:{ 
                       System.out.println("\nIntroduceti numele a doua restaurante: ");
                       System.out.print("Restaurant 1: ");
@@ -527,9 +525,8 @@ public class Main {
                 System.out.println("\n--------------------Optiuni Disponibile:------------------------");
                 System.out.println("1. Adauga restaurant");
                 System.out.println("2. Sterge restaurant");
-                System.out.println("3. Modifica Restaurant");
-                System.out.println("4. Genereaza statistici despre restaurante\n");
-                System.out.println("5. Deconectare\n");
+                System.out.println("3. Genereaza statistici despre restaurante\n");
+                System.out.println("4. Deconectare\n");
 
                 System.out.print("\nAlegeti o optiune: ");
                 int optiune = scanner.nextInt();
@@ -573,19 +570,13 @@ public class Main {
                         }
                         break;
                     }
-                    /*
-                    case 3:{ //TODO
-                        
-                        break;
-                    }
-                    */
 
-                    case 4:{
+                    case 3:{
                         admin.genereazaStatistici();
                         break;
                     }
 
-                    case 5:{
+                    case 4:{
                         continuaProgram = false;
                         break;
                     }
@@ -608,7 +599,7 @@ public class Main {
         scanner.close();
     }
 
-    // Helper methods
+    // Metode helper
     private static ArrayList<Produs> creeazaListaProduse(Produs... produse) {
         ArrayList<Produs> listaProduse = new ArrayList<>();
 
