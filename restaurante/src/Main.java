@@ -225,16 +225,21 @@ public class Main {
             new OfertaCombo(1, "Combo Burger + Cartofi", 39),
             new OfertaMeniu(2, "Reducere Meniu", 12, r6.getMeniu())
         ));
-        /*
-        r7.setOferteValide();
-        r8.setOferteValide();
-        r9.setOferteValide();
-        r10.setOferteValide();
-        */
+        r7.setOferteValide(creeazaListaOferte(
+            new OfertaCombo(1, "Combo Burger + Cartofi", 45)
+        ));
+        r8.setOferteValide(creeazaListaOferte(
+            new OfertaMeniu(1, "Reducere Meniu", 2, r8.getMeniu())
+        ));
+        r9.setOferteValide(creeazaListaOferte(
+            new OfertaMeniu(1, "Reducere Meniu", 5, r9.getMeniu())
+        ));
+        r10.setOferteValide(creeazaListaOferte(
+                new OfertaMeniu(1, "Reducere Meniu", 2, r10.getMeniu())
+        ));
         r11.setOferteValide(creeazaListaOferte(
             new OfertaCombo(1, "Combo Cafea + Croissant", 25)
         ));
-
 
         restaurante.add(r1);
         restaurante.add(r2);
@@ -268,16 +273,19 @@ public class Main {
             // Verifica rolul utilizatorului
             if (utilizator.getRol().equalsIgnoreCase("client")) {
                 Client client = new Client(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol());
+                boolean continuaProgram = true;
 
                 client.asignareComparator(comparator);
 
                 client.afiseazaDateClient();
 
-                System.out.println("\nOptiuni disponibile:");
+                while (continuaProgram) {
+                System.out.println("\n--------------------Optiuni Disponibile:------------------------");
                 System.out.println("1. Cauta restaurant");
                 System.out.println("2. Cauta produs");
                 System.out.println("3. Compara oferte");
                 System.out.println("4. Filtreaza oferte si restaurante\n");
+                System.out.println("5. Deconectare\n");
 
                 System.out.print("\nAlegeti o optiune: ");
                 int optiune = scanner.nextInt();
@@ -413,20 +421,30 @@ public class Main {
                         break;
                     }
 
+                    case 5:{
+                        continuaProgram = false;
+                        break;
+                    }
+
                     default:{
                         System.out.println("Optiune invalida.");
                     }
                 }
+                
+            }
             }
             else if (utilizator.getRol().equalsIgnoreCase("manager")) {
                 ManagerRestaurant manager = new ManagerRestaurant(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol(), restaurante.get(0));
+                boolean continuaProgram = true;
 
-                System.out.println("\nOptiuni disponibile:");
+                while (continuaProgram) {
+                System.out.println("\n--------------------Optiuni Disponibile:------------------------");
                 System.out.println("1. Adauga oferta");
                 System.out.println("2. Elimina oferta");
                 System.out.println("3. Actualizeaza program");
                 System.out.println("4. Actualizeaza pret");
                 System.out.println("5. Modifica meniu\n");
+                System.out.println("6. Deconectare\n");
 
                 System.out.print("\nAlegeti o optiune: ");
                 int optiune = scanner.nextInt();
@@ -439,20 +457,25 @@ public class Main {
                     case 3:break;
                     case 4:break;
                     case 5:break;
+                    case 6:break;
                     default:System.out.println("Optiune invalida.");
                 }
                 */
+                }
             }
             else if (utilizator.getRol().equalsIgnoreCase("administrator")) {
                 Administrator admin = new Administrator(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol());
+                boolean continuaProgram = true;
 
                 admin.asignareComparator(comparator);
 
-                System.out.println("\nOptiuni disponibile:");
+                while (continuaProgram) {
+                System.out.println("\n--------------------Optiuni Disponibile:------------------------");
                 System.out.println("1. Adauga restaurant");
                 System.out.println("2. Sterge restaurant");
                 System.out.println("3. Modifica Restaurant");
                 System.out.println("4. Genereaza statistici despre restaurante\n");
+                System.out.println("5. Deconectare\n");
 
                 System.out.print("\nAlegeti o optiune: ");
                 int optiune = scanner.nextInt();
@@ -508,10 +531,16 @@ public class Main {
                         break;
                     }
 
+                    case 5:{
+                        continuaProgram = false;
+                        break;
+                    }
+
                     default:{
                         System.out.println("Optiune invalida.");
                     }
                 }
+            }
             }
         }
         else {
@@ -525,6 +554,7 @@ public class Main {
         scanner.close();
     }
 
+    // Helper methods
     private static ArrayList<Produs> creeazaListaProduse(Produs... produse) {
         ArrayList<Produs> listaProduse = new ArrayList<>();
 
@@ -534,7 +564,7 @@ public class Main {
         return listaProduse;
     }
 
-        private static ArrayList<Oferta> creeazaListaOferte(Oferta... oferte) {
+    private static ArrayList<Oferta> creeazaListaOferte(Oferta... oferte) {
         ArrayList<Oferta> listaOferte = new ArrayList<>();
 
         for (Oferta o : oferte) {
