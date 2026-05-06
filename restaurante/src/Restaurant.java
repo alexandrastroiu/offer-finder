@@ -6,7 +6,7 @@ public class Restaurant {
     private String denumire;
     private String adresaRestaurant;
     private float distanta;
-    private float oraDeshidere;
+    private float oraDeschidere;
     private float oraInchidere;
     private float notaMedie;
     private SpecificRestaurant tip;
@@ -15,13 +15,13 @@ public class Restaurant {
 
     // constructori
     public Restaurant() {}
-    public Restaurant(int id, String denumire, String adresaRestaurant, float distanta, float oraDeshidere,
+    public Restaurant(int id, String denumire, String adresaRestaurant, float distanta, float oraDeschidere,
                       float oraInchidere, float notaMedie, SpecificRestaurant tip, int idMeniu) {
         this.id = id;
         this.denumire = denumire;
         this.adresaRestaurant = adresaRestaurant;
         this.distanta = distanta;
-        this.oraDeshidere = oraDeshidere;
+        this.oraDeschidere = oraDeschidere;
         this.oraInchidere = oraInchidere;
         this.notaMedie = notaMedie;
         this.tip = tip;
@@ -54,11 +54,11 @@ public class Restaurant {
     }
 
     public float getOraDeschidere() {
-        return oraDeshidere;
+        return oraDeschidere;
     }
 
-    public void setOraDeschidere(float oraDeshidere) {
-        this.oraDeshidere = oraDeshidere;
+    public void setOraDeschidere(float oraDeschidere) {
+        this.oraDeschidere = oraDeschidere;
     }
 
     public float getOraInchidere() {
