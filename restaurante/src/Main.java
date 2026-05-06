@@ -7,9 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Utilizator utilizator1 = new Utilizator();
-        Utilizator utilizator2 = new Utilizator();
-        Utilizator utilizator3 = new Utilizator();
+        Utilizator utilizator = new Utilizator();
         Comparator comparator = new Comparator();
         List<Restaurant> restaurante = new ArrayList<>();
 
@@ -225,7 +223,8 @@ public class Main {
         restaurante.add(r9);
         restaurante.add(r10);
         restaurante.add(r11);
-          
+
+        comparator.setRestaurante(restaurante);
 
         System.out.println("---------------------------------------------------------------");
         System.out.println("                 Comparator Oferte Restaurante                 ");
@@ -237,10 +236,27 @@ public class Main {
         String parola = scanner.nextLine();
 
         // Login
-        boolean esteAutentificat = utilizator1.autentificare(numeUtilizator, parola, "../data/utilizatori.csv");
+        boolean esteAutentificat = utilizator.autentificare(numeUtilizator, parola, "../data/utilizatori.csv");
 
         if (esteAutentificat) {
             System.out.println("\nAutentificare reusita!");
+
+            if (utilizator.getRol().equalsIgnoreCase("client")) {
+                Client client = new Client(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol());
+
+                client.asignareComparator(comparator);
+
+                client.afiseazaDateClient();
+            }
+            else if (utilizator.getRol().equalsIgnoreCase("manager")) {
+                ManagerRestaurant manager = new ManagerRestaurant(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol(), restaurante.get(0));
+
+            }
+            else if (utilizator.getRol().equalsIgnoreCase("administrator")) {
+                Administrator admin = new Administrator(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol());
+
+                admin.asignareComparator(comparator);
+            }
         }
         else {
             System.out.println("\nAutentificare esuata!");
