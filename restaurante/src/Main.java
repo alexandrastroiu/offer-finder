@@ -257,7 +257,7 @@ public class Main {
 
         System.out.println("---------------------------------------------------------------");
         System.out.println("                 Comparator Oferte Restaurante                 ");
-        System.out.println("---------------------------------------------------------------");
+        System.out.println("---------------------------------------------------------------\n");
         System.out.println("\nIntroduceti datele pentru autentificare: ");
         System.out.print("Nume utilizator: ");
         String numeUtilizator = scanner.nextLine();
@@ -281,11 +281,12 @@ public class Main {
 
                 while (continuaProgram) {
                 System.out.println("\n--------------------Optiuni Disponibile:------------------------");
-                System.out.println("1. Cauta restaurant");
-                System.out.println("2. Cauta produs");
-                System.out.println("3. Compara oferte");
-                System.out.println("4. Filtreaza oferte si restaurante\n");
-                System.out.println("5. Deconectare\n");
+                System.out.println("                     1. Cauta restaurant                          ");
+                System.out.println("                     2. Cauta produs                              ");
+                System.out.println("                     3. Compara oferte                            ");
+                System.out.println("                     4. Filtreaza oferte si restaurante           ");
+                System.out.println("                     5. Deconectare                               ");
+                System.out.println("-----------------------------------------------------------------\n");
 
                 System.out.print("\nAlegeti o optiune: ");
                 int optiune = scanner.nextInt();
@@ -359,12 +360,14 @@ public class Main {
                     }
 
                     case 4:{
-                        System.out.println("Optiuni Filtrare:");
-                        System.out.println("pret");
-                        System.out.println("distanta");
-                        System.out.println("procent reducere");
-                        System.out.println("recenzii");
+                        System.out.println("\n--------------------Optiuni Filtrare:------------------------");
+                        System.out.println("                    - pret                                     ");
+                        System.out.println("                    - distanta                                 ");
+                        System.out.println("                    - procent reducere                         ");
+                        System.out.println("                    - recenzii                                 ");
+                        System.out.println("-------------------------------------------------------------\n");
 
+                        System.out.print("Introduceti criteriul de filtrare: ");
                         String criteriu = scanner.nextLine();
 
                         switch (criteriu) {
@@ -378,8 +381,14 @@ public class Main {
                                 if (rezultat.isEmpty()) {
                                     System.out.println("Nu au fost gasite oferte.");
                                 } else {
+                                    System.out.println("Ofertele gasite cu un pret maxim " + pretMax + " :");
                                     for (Oferta o : rezultat) {
-                                        System.out.println(o.getDenumire());
+                                        if (o instanceof OfertaMeniu) {
+                                            System.out.println(o.getDenumire() + " - " + client.getComparator().priceToString(o) + " %");
+                                        }
+                                        else {
+                                            System.out.println(o.getDenumire() + " - " + client.getComparator().priceToString(o) + "lei");
+                                        }
                                      }
                                 }
 
@@ -387,7 +396,7 @@ public class Main {
                             }
 
                             case "distanta":{
-                                System.out.print("Distanta maxima: ");
+                                System.out.print("Distanta maxima (km) : ");
                                 float distMax = scanner.nextFloat();
                                 scanner.nextLine();
 
@@ -396,8 +405,9 @@ public class Main {
                                 if (rezultat.isEmpty()) {
                                     System.out.println("Nu au fost gasite restaurante.");
                                 } else {
+                                    System.out.println("Restaurantele gasite la o distanta de maxim " + distMax + " km de Politehnica:");
                                     for (Restaurant r : rezultat) {
-                                        System.out.println(r.getDenumire() + " - " + r.getDistanta());
+                                        System.out.println(r.getDenumire() + " - " + r.getDistanta() + " km");
                                      }
                                 }
                 
@@ -414,8 +424,9 @@ public class Main {
                                 if (rezultat.isEmpty()) {
                                     System.out.println("Nu au fost gasite oferte.");
                                 } else {
+                                    System.out.println("Ofertele gasite cu un procent de reducere de minim " + pragMin + " %:");
                                     for (Oferta o : rezultat) {
-                                        System.out.println(o.getDenumire());
+                                        System.out.println(o.getDenumire() + " - " + client.getComparator().reducereToString(o) + " % ");
                                     }
                                 }
 
@@ -432,6 +443,7 @@ public class Main {
                                 if (rezultat.isEmpty()) {
                                     System.out.println("Nu au fost gasite restaurante.");
                                 } else {
+                                    System.out.println("Restaurantele gasite cu nota medie minim " + notaMin + " :");
                                     for (Restaurant r : rezultat) {
                                         System.out.println(r.getDenumire() + " - " + r.getNotaMedie());
                                     }
@@ -466,12 +478,13 @@ public class Main {
 
                 while (continuaProgram) {
                 System.out.println("\n--------------------Optiuni Disponibile:------------------------");
-                System.out.println("1. Adauga oferta");
-                System.out.println("2. Elimina oferta");
-                System.out.println("3. Actualizeaza program");
-                System.out.println("4. Actualizeaza pret");
-                System.out.println("5. Modifica meniu\n");
-                System.out.println("6. Deconectare\n");
+                System.out.println("                     1. Adauga oferta                             ");
+                System.out.println("                     2. Elimina oferta                            ");
+                System.out.println("                     3. Actualizeaza program                      ");
+                System.out.println("                     4. Actualizeaza pret                         ");
+                System.out.println("                     5. Modifica meniu                            ");
+                System.out.println("                     6. Deconectare                               ");
+                System.out.println("-----------------------------------------------------------------\n");
 
                 System.out.print("\nAlegeti o optiune: ");
                 int optiune = scanner.nextInt();
@@ -523,10 +536,11 @@ public class Main {
 
                 while (continuaProgram) {
                 System.out.println("\n--------------------Optiuni Disponibile:------------------------");
-                System.out.println("1. Adauga restaurant");
-                System.out.println("2. Sterge restaurant");
-                System.out.println("3. Genereaza statistici despre restaurante\n");
-                System.out.println("4. Deconectare\n");
+                System.out.println("                     1. Adauga restaurant                         ");
+                System.out.println("                     2. Sterge restaurant                         ");
+                System.out.println("                     3. Genereaza statistici despre restaurante   ");
+                System.out.println("                     4. Deconectare                               ");
+                System.out.println("-----------------------------------------------------------------\n");
 
                 System.out.print("\nAlegeti o optiune: ");
                 int optiune = scanner.nextInt();

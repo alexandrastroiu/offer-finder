@@ -100,6 +100,7 @@ public class Comparator {
         float pret;
         if(oferta instanceof OfertaProdus) pret = ((OfertaProdus) oferta).getPretRedus();
         else if(oferta instanceof OfertaCombo) pret = ((OfertaCombo) oferta).getPretCombo();
+        else if(oferta instanceof OfertaMeniu) pret = ((OfertaMeniu) oferta).getReducere();
         else pret = (float) -1;
         return pret;
     }
