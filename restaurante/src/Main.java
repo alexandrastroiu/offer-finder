@@ -384,7 +384,7 @@ public class Main {
                                     System.out.println("Ofertele gasite cu un pret maxim " + pretMax + " :");
                                     for (Oferta o : rezultat) {
                                         if (o instanceof OfertaMeniu) {
-                                            System.out.println(o.getDenumire() + " - " + client.getComparator().priceToString(o) + " %");
+                                            System.out.println(o.getDenumire() + " - " + client.getComparator().reducereToString(o) + " %");
                                         }
                                         else {
                                             System.out.println(o.getDenumire() + " - " + client.getComparator().priceToString(o) + "lei");
