@@ -207,38 +207,38 @@ public class Main {
         ));
         
         r2.setOferteValide(creeazaListaOferte(
-            new OfertaCombo(1, "Combo Pizza", 52),
-            new OfertaCombo(2, "Combo Pizza + Paste", 60),
-            new OfertaMeniu(3, "Reducere Meniu", 10, r2.getMeniu())
+            new OfertaCombo(2, "Combo Pizza", 52),
+            new OfertaCombo(3, "Combo Pizza + Paste", 60),
+            new OfertaMeniu(4, "Reducere Meniu", 10, r2.getMeniu())
         ));
         r3.setOferteValide(creeazaListaOferte(
-            new OfertaCombo(1, "Combo Noodles", 44),
-            new OfertaMeniu(2, "Reducere Meniu", 5, r3.getMeniu())
+            new OfertaCombo(5, "Combo Noodles", 44),
+            new OfertaMeniu(6, "Reducere Meniu", 5, r3.getMeniu())
         ));
         r4.setOferteValide(creeazaListaOferte(
-            new OfertaCombo(1, "Combo Burger + Cartofi", 45)
+            new OfertaCombo(7, "Combo Burger + Cartofi", 45)
         ));
         r5.setOferteValide(creeazaListaOferte(
-            new OfertaMeniu(1, "Reducere Meniu", 7, r5.getMeniu())
+            new OfertaMeniu(8, "Reducere Meniu", 7, r5.getMeniu())
         ));
         r6.setOferteValide(creeazaListaOferte(
-            new OfertaCombo(1, "Combo Burger + Cartofi", 39),
-            new OfertaMeniu(2, "Reducere Meniu", 12, r6.getMeniu())
+            new OfertaCombo(9, "Combo Burger + Cartofi", 39),
+            new OfertaMeniu(10, "Reducere Meniu", 12, r6.getMeniu())
         ));
         r7.setOferteValide(creeazaListaOferte(
-            new OfertaCombo(1, "Combo Burger + Cartofi", 45)
+            new OfertaCombo(11, "Combo Burger + Cartofi", 45)
         ));
         r8.setOferteValide(creeazaListaOferte(
-            new OfertaMeniu(1, "Reducere Meniu", 2, r8.getMeniu())
+            new OfertaMeniu(12, "Reducere Meniu", 2, r8.getMeniu())
         ));
         r9.setOferteValide(creeazaListaOferte(
-            new OfertaMeniu(1, "Reducere Meniu", 5, r9.getMeniu())
+            new OfertaMeniu(13, "Reducere Meniu", 5, r9.getMeniu())
         ));
         r10.setOferteValide(creeazaListaOferte(
-                new OfertaMeniu(1, "Reducere Meniu", 2, r10.getMeniu())
+                new OfertaMeniu(14, "Reducere Meniu", 2, r10.getMeniu())
         ));
         r11.setOferteValide(creeazaListaOferte(
-            new OfertaCombo(1, "Combo Cafea + Croissant", 25)
+            new OfertaCombo(15, "Combo Cafea + Croissant", 25)
         ));
 
         restaurante.add(r1);
