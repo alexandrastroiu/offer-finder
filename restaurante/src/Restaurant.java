@@ -211,5 +211,18 @@ public class Restaurant {
         this.oferteValide.removeIf(of -> (of.getDenumire().equals(nume)));
     }
 
+    public Produs getProdusById(int id) {
+        if (this.meniu == null || this.meniu.getProduse() == null) {
+            return null;
+        }
+
+        for (Produs p : this.meniu.getProduse()) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+
+        return null;
+    }
 
 }
