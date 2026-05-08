@@ -116,7 +116,7 @@ public class Restaurant {
         System.out.println("Oferte: ");
         for(int i = 0; i < this.oferteValide.size(); i ++) {
             System.out.println((i + 1) + ". " + this.oferteValide.get(i).getDenumire());
-            String cls = String.valueOf(this.oferteValide.get(id));
+            String cls = String.valueOf(this.oferteValide.get(i));
             switch (cls) {
                 case "OfertaMeniu":
                     OfertaMeniu ofertaMeniu = (OfertaMeniu) this.oferteValide.get(i);
@@ -142,19 +142,18 @@ public class Restaurant {
 
     //adaugare oferta
     public void adaugareOferta(Oferta ofertaNoua) {
-        String cls = cls = String.valueOf(ofertaNoua);
         if(ofertaNoua != null) {
             this.oferteValide.add(ofertaNoua);
-            if (cls.equals("OfertaMeniu")) {
+            if (ofertaNoua instanceof OfertaMeniu) {
                 OfertaMeniu ofertaMeniu = (OfertaMeniu) ofertaNoua;
                 for (int i = 0; i < this.meniu.getProduse().size(); i++) {
-                    float pretNou = this.meniu.getProduse().get(i).getPret() - ofertaMeniu.getReducere() / 100 * this.meniu.getProduse().get(i).getPret();
+                    float pretNou = this.meniu.getProduse().get(i).getPret() - (ofertaMeniu.getReducere() / 100.0f) * this.meniu.getProduse().get(i).getPret();
                     this.meniu.getProduse().get(i).setPret(pretNou);
                 }
-            } else if (cls.equals("OfertaProdus")) {
+            } else if (ofertaNoua instanceof OfertaProdus) {
                 OfertaProdus ofertaProdus = (OfertaProdus) ofertaNoua;
                 int i = this.meniu.getProduse().indexOf(ofertaProdus.getProdus());
-                float pretVechi = ofertaProdus.getProdus().getPret() - ofertaProdus.getReducere() / 100 * this.meniu.getProduse().get(i).getPret();
+                float pretVechi = ofertaProdus.getProdus().getPret() - (ofertaProdus.getReducere() / 100.0f) * this.meniu.getProduse().get(i).getPret();
                 this.meniu.getProduse().get(i).setPret(pretVechi);
             }
         }
@@ -164,8 +163,13 @@ public class Restaurant {
     public void eleminareOfertaId(int id) {
         String cls = "";
         Oferta oferta = null;
-        oferta = this.oferteValide.get(id);
-        cls = String.valueOf(oferta);
+
+        for(int i = 0; i < this.oferteValide.size(); i ++) {
+            if(this.oferteValide.get(i).getId() == id) {
+                oferta = this.oferteValide.get(id);
+                cls = String.valueOf(oferta);
+            }
+        }
 
         if(cls.equals("OfertaMeniu")) {
             OfertaMeniu ofertaMeniu = (OfertaMeniu)oferta;

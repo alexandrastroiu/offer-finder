@@ -83,12 +83,13 @@ public class Utilizator {
             // Citeste linie cu linie din fisierul CSV
             while ((linie = br.readLine()) != null) {
                 String[] dateUtilizator = linie.split(",");
-                if (dateUtilizator.length == 5) {
+                if (dateUtilizator.length == 6) {
                     int idUtilizator = Integer.parseInt(dateUtilizator[0]);
                     String emailUtilizator = dateUtilizator[1];
                     String username = dateUtilizator[2];
                     String parolaHash = dateUtilizator[3];
                     String rolUtilizator = dateUtilizator[4];
+                    String restaurant = dateUtilizator[5];
                     String parolaHashIntrodusa = "";
 
                     try {
@@ -125,6 +126,59 @@ public class Utilizator {
             System.out.println("A avut loc o eroare in timpul autentificarii.");
         }
         return false;
+    }
+
+    public String extragereRestaurant(String usernameIntrodus, String parolaIntrodusa, String fisier) {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fisier));
+            String linie;
+
+            // Citeste linie cu linie din fisierul CSV
+            while ((linie = br.readLine()) != null) {
+                String[] dateUtilizator = linie.split(",");
+                if (dateUtilizator.length == 6) {
+                    int idUtilizator = Integer.parseInt(dateUtilizator[0]);
+                    String emailUtilizator = dateUtilizator[1];
+                    String username = dateUtilizator[2];
+                    String parolaHash = dateUtilizator[3];
+                    String rolUtilizator = dateUtilizator[4];
+                    String restaurant = dateUtilizator[5];
+                    String parolaHashIntrodusa = "";
+
+                    try {
+                        MessageDigest message = MessageDigest.getInstance("SHA-256");
+                        byte[] hashBytes = message.digest(parolaIntrodusa.getBytes(StandardCharsets.UTF_8));
+                        StringBuilder sb = new StringBuilder();
+
+                        for (byte b : hashBytes) {
+                            sb.append(String.format("%02x", b));
+                        }
+
+                        parolaHashIntrodusa = sb.toString();
+                    } catch (NoSuchAlgorithmException e) {
+                        System.out.println("Eroare la hash-uirea parolei introduse.");
+                        br.close();
+                        return "";
+                    }
+
+                    if (username.equals(usernameIntrodus) && parolaHash.equals(parolaHashIntrodusa)) {
+                        this.id = idUtilizator;
+                        this.email = emailUtilizator;
+                        this.numeUtilizator = username;
+                        this.parola = parolaHash;
+                        this.rol = rolUtilizator;
+                        this.esteAutentificat = true;
+                        br.close();
+                        return restaurant;
+                    }
+                }
+            }
+            br.close();
+        }
+        catch (IOException e) {
+            System.out.println("A avut loc o eroare in timpul autentificarii.");
+        }
+        return "";
     }
 
     // Deconectare

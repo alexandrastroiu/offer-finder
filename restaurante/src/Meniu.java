@@ -44,7 +44,10 @@ public class Meniu {
 
     // elimina produs dupa id
     public void eliminaProdusId(int id) {
-        this.produse.remove(id);
+        for(int i = 0; i < this.produse.size(); i ++) {
+            if(this.produse.get(i).getId() == id)
+                this.produse.remove(i);
+        }
     }
 
     // afiseaza meniu

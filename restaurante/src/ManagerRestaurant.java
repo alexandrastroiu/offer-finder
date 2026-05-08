@@ -1,9 +1,15 @@
+import java.util.List;
 import java.util.Scanner;
 
 import java.util.Scanner;
+import java.util.stream.Collectors;
+
 public class ManagerRestaurant extends Utilizator
 {
     private Restaurant restaurant;
+    // Relatie de asociatie intre clasele manager si comparator
+    private Comparator comparator;
+    private  int restaurantID;
 
     // constructori
     public ManagerRestaurant(Restaurant restaurant) {
@@ -14,11 +20,11 @@ public class ManagerRestaurant extends Utilizator
         super();
     }
 
-    public ManagerRestaurant(int id, String email, String numeUtilizator, String parola, String rol, Restaurant restaurant) {
+    public ManagerRestaurant(int id, String email, String numeUtilizator, String parola, String rol, Restaurant restaurant, int idRst) {
         super(id, email, numeUtilizator, parola, rol);
         this.restaurant = restaurant;
+        this.restaurantID = idRst;
     }
-
 
     // getters si setters
 
@@ -28,6 +34,22 @@ public class ManagerRestaurant extends Utilizator
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public int getRestaurantID() {
+        return restaurantID;
+    }
+
+    public void setRestaurantID(int restaurantID) {
+        this.restaurantID = restaurantID;
+    }
+
+    public Comparator getComparator() {
+        return comparator;
+    }
+
+    public void setComparator(Comparator comparator) {
+        this.comparator = comparator;
     }
 
     // metode
@@ -41,12 +63,13 @@ public class ManagerRestaurant extends Utilizator
         System.out.println("2. Reducere pentru un produs anume");
         System.out.println("3. Oferta combo");
         int optiune = scanner.nextInt();
+        List<Restaurant> restauranteTemp = this.comparator.getRestaurante();
         switch (optiune) {
             case 1:
                 System.out.println("Ce procentaj de reducere doriti?");
                 int procentaj = scanner.nextInt();
                 System.out.println("Ce denumire doriti sa aiba oferta?");
-                String denumire = scanner.next();
+                String denumire = scanner.nextLine();
                 OfertaMeniu ofertaMeniu = new OfertaMeniu(this.restaurant.getOferteValide().size(), denumire, procentaj, restaurant.getMeniu());
                 this.restaurant.adaugareOferta(ofertaMeniu);
                 break;
@@ -58,7 +81,7 @@ public class ManagerRestaurant extends Utilizator
                 this.restaurant.getMeniu().afisareMeniu();
                 int idProd = scanner.nextInt() - 1;
                 System.out.println("Ce denumire doriti sa aiba oferta?");
-                String numeOfertaProdus = scanner.next();
+                String numeOfertaProdus = scanner.nextLine();
                 OfertaProdus ofertaProdus = new OfertaProdus(this.restaurant.getOferteValide().size(), numeOfertaProdus, reducere);
                 ofertaProdus.setProdus(this.restaurant.getMeniu().getProduse().get(idProd));
                 this.restaurant.adaugareOferta(ofertaProdus);
@@ -68,7 +91,7 @@ public class ManagerRestaurant extends Utilizator
                 System.out.println("Ce pret doriti sa aiba oferta de tip combo?");
                 float pret = scanner.nextFloat();
                 System.out.println("Ce denumire doriti sa aiba oferta?");
-                String numeOfertaCombo = scanner.next();
+                String numeOfertaCombo = scanner.nextLine();
                 OfertaCombo ofertaCombo = new OfertaCombo(this.restaurant.getOferteValide().size(), numeOfertaCombo, pret);
                 System.out.println("Cate produse doriti sa aiba oferta de tip combo?");
                 int nrProd = scanner.nextInt();
@@ -94,7 +117,8 @@ public class ManagerRestaurant extends Utilizator
         Scanner scanner = new Scanner(System.in);
         this.restaurant.afisareOferte();
         System.out.println("Introduceti denumirea ofertei pe care doriti sa o eliminati");
-        String nume = scanner.next();
+        String nume = scanner.nextLine();
+        List<Restaurant> restauranteTemp = this.comparator.getRestaurante();
         if(this.restaurant.getOferteValide().stream().filter(oferta -> (oferta.getDenumire().equals(nume))).findAny().orElse(null) != null) {
             this.restaurant.eleminareOfertaNume(nume);
             System.out.println("Oferta " + nume + " nu mai este valida");
@@ -107,12 +131,14 @@ public class ManagerRestaurant extends Utilizator
     // actualizeaza program
     public void actualizeazaProgram() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Program actual: " + this.restaurant.getOraDeschidere() + "." + this.restaurant.getOraInchidere());
         System.out.println("Introduceti numarul corespunzator optiunii dvs. (ex.: 1, 2)");
         System.out.println("1. Actualizare ora deschidere");
         System.out.println("2. Actualizare ora inchidere");
         int optiune = scanner.nextInt();
         System.out.println("Introduceti noul program (format: ora.minut)");
         float ora = scanner.nextFloat();
+        List<Restaurant> restauranteTemp = this.comparator.getRestaurante();
         if(optiune == 1) {
             this.restaurant.setOraDeschidere(ora);
         }
@@ -126,6 +152,7 @@ public class ManagerRestaurant extends Utilizator
 
     // actualizeaza pret
     public void actualizeazaPret() {
+        List<Restaurant> restauranteTemp = this.comparator.getRestaurante();
         Scanner scanner = new Scanner(System.in);
         this.restaurant.getMeniu().afisareMeniu();
         System.out.println("Introduceti numarul corespunzator produsului al carui pret doriti sa il modificati");
@@ -141,6 +168,7 @@ public class ManagerRestaurant extends Utilizator
 
     // modifica meniu
     public void modificaMeniu() {
+        List<Restaurant> restauranteTemp = this.comparator.getRestaurante();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Introduceti numarul corespunzator optiunii dvs.");
         System.out.println("1. Adaugare produs");
@@ -148,22 +176,23 @@ public class ManagerRestaurant extends Utilizator
         int optiune = scanner.nextInt();
         if(optiune == 1) {
             System.out.println("Introduceti denumirea noului produs");
-            String nume = scanner.next();
+            String nume = scanner.nextLine();
             System.out.println("Introduceti pretul noului produs");
             float pret = scanner.nextFloat();
             System.out.println("Introduceti caloriile noului produs");
             float calorii = scanner.nextFloat();
             System.out.println("Introduceti o scurta descriere a noului produs");
-            String descriere = scanner.next();
+            String descriere = scanner.nextLine();
             Produs produsNou = new Produs(this.restaurant.getMeniu().getProduse().size(), nume, pret, descriere, calorii);
             this.restaurant.getMeniu().adaugaProdus(produsNou);
             System.out.println("Produsul a fost adaugat");
         }
-        else if(optiune == 2) {
+        else if(optiune == 2 && this.restaurant.getMeniu().getProduse().size() > 0) {
             this.restaurant.getMeniu().afisareMeniu();
             System.out.println("Introduceti numarul corespunzator produsului pe care doriti sa il eliminati");
-            int prodId = scanner.nextInt() - 1;
-            this.restaurant.getMeniu().eliminaProdusId(prodId);
+            int prod = scanner.nextInt() - 1;
+            Produs p = this.restaurant.getMeniu().getProduse().get(prod);
+            this.restaurant.getMeniu().eliminaProdusId(p.getId());
             System.out.println("Produsul a fost elimiat");
         }
         else {

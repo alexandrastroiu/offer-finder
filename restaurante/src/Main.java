@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -515,6 +516,7 @@ public class Main {
             }
             }
             else if (utilizator.getRol().equalsIgnoreCase("manager")) {
+<<<<<<< Updated upstream
                 System.out.print("\nIntroduceti ID-ul restaurantului gestionat: ");
                 int IdRestaurant = scanner.nextInt();
                 scanner.nextLine();
@@ -530,6 +532,14 @@ public class Main {
                 else {
                     System.out.print("\nID-ul restaurantului nu se afla in lista de restaurante disponibile.");
                 }
+=======
+                String numeRestaurant = utilizator.extragereRestaurant(numeUtilizator, parola, "./../restaurante/data/utilizatori.csv");
+                Restaurant r = comparator.cautaRestaurant(numeRestaurant).getFirst();
+                ManagerRestaurant manager = new ManagerRestaurant(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol(), r, r.getId());
+                manager.setComparator(comparator);
+
+                boolean continuaProgram = true;
+>>>>>>> Stashed changes
 
                 while (continuaProgram) {
                 System.out.println("\n--------------------Optiuni Disponibile:------------------------");
