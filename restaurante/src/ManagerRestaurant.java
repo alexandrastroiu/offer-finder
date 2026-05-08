@@ -118,7 +118,6 @@ public class ManagerRestaurant extends Utilizator
         this.restaurant.afisareOferte();
         System.out.println("Introduceti denumirea ofertei pe care doriti sa o eliminati");
         String nume = scanner.nextLine();
-        List<Restaurant> restauranteTemp = this.comparator.getRestaurante();
         if(this.restaurant.getOferteValide().stream().filter(oferta -> (oferta.getDenumire().equals(nume))).findAny().orElse(null) != null) {
             this.restaurant.eleminareOfertaNume(nume);
             System.out.println("Oferta " + nume + " nu mai este valida");
@@ -156,14 +155,18 @@ public class ManagerRestaurant extends Utilizator
         Scanner scanner = new Scanner(System.in);
         this.restaurant.getMeniu().afisareMeniu();
         System.out.println("Introduceti numarul corespunzator produsului al carui pret doriti sa il modificati");
-        int prodId = scanner.nextInt() - 1;
-        System.out.println("Nume produs " + this.restaurant.getMeniu().getProduse().get(prodId).getDenumire() +
-                           " pret vechi: " + this.restaurant.getMeniu().getProduse().get(prodId).getPret());
+        int nr = scanner.nextInt() - 1;
+        if(nr >= this.restaurant.getMeniu().getProduse().size() || nr < 0) {
+            System.out.println("Numar necorespunzator");
+            return;
+        }
+        System.out.println("Nume produs " + this.restaurant.getMeniu().getProduse().get(nr).getDenumire() +
+                           " pret vechi: " + this.restaurant.getMeniu().getProduse().get(nr).getPret());
         System.out.println("Introduceti noul pret: ");
         float pretNou = scanner.nextFloat();
-        this.restaurant.getMeniu().getProduse().get(prodId).setPret(pretNou);
-        System.out.println("Nume produs " + this.restaurant.getMeniu().getProduse().get(prodId).getDenumire() +
-                           " pret nou: " + this.restaurant.getMeniu().getProduse().get(prodId).getPret());
+        this.restaurant.getMeniu().getProduse().get(nr).setPret(pretNou);
+        System.out.println("Nume produs " + this.restaurant.getMeniu().getProduse().get(nr).getDenumire() +
+                           " pret nou: " + this.restaurant.getMeniu().getProduse().get(nr).getPret());
     }
 
     // modifica meniu
@@ -174,6 +177,7 @@ public class ManagerRestaurant extends Utilizator
         System.out.println("1. Adaugare produs");
         System.out.println("2. Eliminare produs");
         int optiune = scanner.nextInt();
+        scanner.nextLine();
         if(optiune == 1) {
             System.out.println("Introduceti denumirea noului produs");
             String nume = scanner.nextLine();
@@ -182,6 +186,7 @@ public class ManagerRestaurant extends Utilizator
             System.out.println("Introduceti caloriile noului produs");
             float calorii = scanner.nextFloat();
             System.out.println("Introduceti o scurta descriere a noului produs");
+            scanner.nextLine();
             String descriere = scanner.nextLine();
             Produs produsNou = new Produs(this.restaurant.getMeniu().getProduse().size(), nume, pret, descriere, calorii);
             this.restaurant.getMeniu().adaugaProdus(produsNou);
@@ -198,6 +203,13 @@ public class ManagerRestaurant extends Utilizator
         else {
             System.out.println("Nu exista aceasta optiune. Reluati procesul");
         }
+        for (int i = 0; i < restauranteTemp.size(); i++) {
+            if (restauranteTemp.get(i).getId() == this.restaurant.getId()) {
+                restauranteTemp.set(i, this.restaurant);
+                break;
+            }
+        }
+        this.comparator.setRestaurante(restauranteTemp);
     }
 
 }
