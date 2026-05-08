@@ -196,16 +196,16 @@ public class Main {
         ));
         r11.getMeniu().setProduse(creeazaListaProduse(
             new Produs(29, "Croissant", 15 , "", 320),
-            new Produs(30, "Cafea Americano", 19 , "", 150)
+            new Produs(30, "Cafea Americano", 19 , "", 150),
+            new Produs(31, "Cafea Capuccino", 27 , "", 150),
+            new Produs(32, "Cafea Latte", 31 , "", 170)
         ));
 
-        // TODO
         // Adauga oferte pentru restaurantele disponibile
               
         r1.setOferteValide(creeazaListaOferte(
             new OfertaCombo(1, "Combo Pizza + Paste", 50)
         ));
-        
         r2.setOferteValide(creeazaListaOferte(
             new OfertaCombo(2, "Combo Pizza", 52),
             new OfertaCombo(3, "Combo Pizza + Paste", 60),
@@ -237,8 +237,23 @@ public class Main {
         r10.setOferteValide(creeazaListaOferte(
                 new OfertaMeniu(14, "Reducere Meniu", 2, r10.getMeniu())
         ));
+
+        OfertaProdus ofertaProdus1 =  new OfertaProdus(16, "Oferta Capuccino", 10);
+        Produs produsOferta1 = r11.getProdusById(31);
+        if ( produsOferta1 != null){
+            ofertaProdus1.setProdus(produsOferta1);
+        }
+      
+        OfertaProdus ofertaProdus2 = new OfertaProdus(17, "Oferta Latte", 7);
+        Produs produsOferta2 = r11.getProdusById(32);
+        if (produsOferta2 != null) {
+            ofertaProdus2.setProdus(produsOferta2);
+        }
+
         r11.setOferteValide(creeazaListaOferte(
-            new OfertaCombo(15, "Combo Cafea + Croissant", 25)
+            new OfertaCombo(15, "Combo Cafea + Croissant", 25),
+            ofertaProdus1,
+            ofertaProdus2
         ));
 
         restaurante.add(r1);
@@ -387,7 +402,7 @@ public class Main {
 
                         switch (criteriu) {
                             case "pret":{
-                                System.out.print("Pret maxim: ");
+                                System.out.print("Pret maxim (lei) : ");
                                 float pretMax = scanner.nextFloat();
                                 scanner.nextLine();
 
@@ -436,7 +451,7 @@ public class Main {
                             }
 
                             case "procent reducere":{
-                                System.out.print("Prag minim: ");
+                                System.out.print("Prag minim (%) : ");
                                 int pragMin = scanner.nextInt();
                                 scanner.nextLine();
 
@@ -461,7 +476,7 @@ public class Main {
                             }
 
                             case "recenzii":{
-                                System.out.print("Nota minima: ");
+                                System.out.print("Nota minima : ");
                                 float notaMin = scanner.nextFloat();
                                 scanner.nextLine();
 
@@ -500,8 +515,21 @@ public class Main {
             }
             }
             else if (utilizator.getRol().equalsIgnoreCase("manager")) {
-                ManagerRestaurant manager = new ManagerRestaurant(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol(), restaurante.get(0));
-                boolean continuaProgram = true;
+                System.out.print("\nIntroduceti ID-ul restaurantului gestionat: ");
+                int IdRestaurant = scanner.nextInt();
+                scanner.nextLine();
+
+                ManagerRestaurant manager = new ManagerRestaurant();
+                boolean continuaProgram = false;
+
+                if (comparator.getRestaurante() != null && IdRestaurant >= 1 && IdRestaurant <= comparator.getRestaurante().size()) {
+                    System.out.println("\nID-ul restaurantului gestionat se afla in lista de restaurante disponibile, restaurantul gestionat este: " + comparator.getRestaurantById(IdRestaurant).getDenumire());
+                    manager = new ManagerRestaurant(utilizator.getId(), utilizator.getEmail(), utilizator.getNumeUtilizator(), utilizator.getParola(), utilizator.getRol(), restaurante.get(IdRestaurant));
+                    continuaProgram = true;
+                }
+                else {
+                    System.out.print("\nID-ul restaurantului nu se afla in lista de restaurante disponibile.");
+                }
 
                 while (continuaProgram) {
                 System.out.println("\n--------------------Optiuni Disponibile:------------------------");
