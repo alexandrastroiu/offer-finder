@@ -322,9 +322,9 @@ public class Main {
 
                             for (Restaurant r : rezultat) {
                                 System.out.println(r.getDenumire());
-                                System.out.println("Distanta fata de Politehnica: " + r.getDistanta() + " km");
-                                System.out.println("Nota: " + r.getNotaMedie() + "/5");
-                                System.out.println("Program: " + r.getOraDeschidere() + " AM" + " - " + r.getOraInchidere() + " PM");
+                                System.out.println("Distanta fata de Politehnica: " + formatFloat(r.getDistanta()) + " km");
+                                System.out.println("Nota: " + formatFloat(r.getNotaMedie()) + "/5");
+                                System.out.println("Program: " + formatFloat(r.getOraDeschidere()) + " AM" + " - " + formatFloat(r.getOraInchidere()) + " PM");
                             }
                         }
                         break; 
@@ -341,7 +341,7 @@ public class Main {
                         } else {
 
                             for (Produs p : rezultat) {
-                                System.out.print(p.getDenumire() + " - " + p.getPret() + " lei");
+                                System.out.print(p.getDenumire() + " - " + formatFloat(p.getPret()) + " lei");
 
                                 Restaurant restaurantProdus = client.getComparator().getRestaurantByProdusId(p.getId());
 
@@ -417,7 +417,7 @@ public class Main {
                                             System.out.print(o.getDenumire() + " - " + client.getComparator().reducereToString(o) + " %");
                                         }
                                         else {
-                                            System.out.print(o.getDenumire() + " - " + client.getComparator().priceToString(o) + "lei");
+                                            System.out.print(o.getDenumire() + " - " + client.getComparator().priceToString(o) + " lei");
                                         }
 
                                         Restaurant restaurantOferta = client.getComparator().getRestaurantByOfertaId(o.getId());
@@ -441,9 +441,9 @@ public class Main {
                                 if (rezultat.isEmpty()) {
                                     System.out.println("Nu au fost gasite restaurante.");
                                 } else {
-                                    System.out.println("Restaurantele gasite la o distanta de maxim " + distMax + " km de Politehnica:");
+                                    System.out.println("Restaurantele gasite la o distanta de maxim " + formatFloat(distMax) + " km de Politehnica:");
                                     for (Restaurant r : rezultat) {
-                                        System.out.println(r.getDenumire() + " - " + r.getDistanta() + " km");
+                                        System.out.println(r.getDenumire() + " - " + formatFloat(r.getDistanta()) + " km");
                                      }
                                 }
                 
@@ -460,7 +460,7 @@ public class Main {
                                 if (rezultat.isEmpty()) {
                                     System.out.println("Nu au fost gasite oferte.");
                                 } else {
-                                    System.out.println("Ofertele gasite cu un procent de reducere de minim " + pragMin + " %:");
+                                    System.out.println("Ofertele gasite cu un procent de reducere de minim " + formatFloat(pragMin) + " %:");
                                     for (Oferta o : rezultat) {
                                         System.out.print(o.getDenumire() + " - " + client.getComparator().reducereToString(o) + " % ");
 
@@ -485,9 +485,9 @@ public class Main {
                                 if (rezultat.isEmpty()) {
                                     System.out.println("Nu au fost gasite restaurante.");
                                 } else {
-                                    System.out.println("Restaurantele gasite cu nota medie minim " + notaMin + " :");
+                                    System.out.println("Restaurantele gasite cu nota medie minim " + formatFloat(notaMin) + " :");
                                     for (Restaurant r : rezultat) {
-                                        System.out.println(r.getDenumire() + " - " + r.getNotaMedie());
+                                        System.out.println(r.getDenumire() + " - " + formatFloat(r.getNotaMedie()));
                                     }
                                 }
 
@@ -684,6 +684,10 @@ public class Main {
             listaOferte.add(o);
         }
         return listaOferte;
+    }
+
+    private static String formatFloat(float value) {
+        return String.format("%.2f", value);
     }
 
 }
