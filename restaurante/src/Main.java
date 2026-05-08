@@ -265,7 +265,7 @@ public class Main {
         String parola = scanner.nextLine();
 
         // Login
-        boolean esteAutentificat = utilizator.autentificare(numeUtilizator, parola, "../data/utilizatori.csv");
+        boolean esteAutentificat = utilizator.autentificare(numeUtilizator, parola, "./../restaurante/data/utilizatori.csv");
 
         if (esteAutentificat) {
             System.out.println("\nAutentificare reusita!\n");
