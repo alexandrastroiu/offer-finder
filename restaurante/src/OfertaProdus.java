@@ -32,6 +32,7 @@ public class OfertaProdus extends Oferta {
 
     public void setProdus(Produs produs) {
         this.produs = produs;
+        this.pretRedus = this.produs.getPret() - this.reducere * this.produs.getPret() / 100;
     }
 
     public float getPretRedus() {
