@@ -97,7 +97,7 @@ public class Comparator {
     }
 
     public float getPretDinOferta(Oferta oferta) {
-        float pret;
+        float pret = 0f;
         if(oferta instanceof OfertaProdus) pret = ((OfertaProdus) oferta).getPretRedus();
         else if(oferta instanceof OfertaCombo) pret = ((OfertaCombo) oferta).getPretCombo();
         else pret = (float) -1;
@@ -105,7 +105,7 @@ public class Comparator {
     }
 
     public String priceToString(Oferta oferta) {
-        if(getPretDinOferta(oferta) > 0) {
+        if(getPretDinOferta(oferta) > 0.0) {
             return String.valueOf(getPretDinOferta(oferta));
         }
         else {
@@ -148,12 +148,15 @@ public class Comparator {
 
         String rDist;
         if(r1.getDistanta() > r2.getDistanta()) {
+            rDist = "Oferta 2";
+            totalO2 ++;
+        }
+        else if(r1.getDistanta() < r2.getDistanta()){
             rDist = "Oferta 1";
             totalO1 ++;
         }
         else {
-            rDist = "Oferta 2";
-            totalO2 ++;
+            rDist = "Egale";
         }
 
         String rPret;
@@ -162,9 +165,12 @@ public class Comparator {
             rPret = "Oferta 1";
             totalO1 ++;
         }
-        else {
+        else if (getPretDinOferta(o1) > getPretDinOferta(o2))  {
             rPret = "Oferta 2";
             totalO2 ++;
+        }
+        else {
+            rPret = "Egale";
         }
 
         String rRed;
@@ -173,9 +179,12 @@ public class Comparator {
             rRed = "Oferta 1";
             totalO1 ++;
         }
-        else {
+        else if (getReducereDinOferta(o1) > getReducereDinOferta(o2)){
             rRed = "Oferta 2";
             totalO2 ++;
+        }
+        else {
+            rRed = "Egale";
         }
 
         String rRec;
@@ -183,9 +192,12 @@ public class Comparator {
             rRec = "Oferta 1";
             totalO1 ++;
         }
-        else {
+        else if(r1.getNotaMedie() < r2.getNotaMedie()) {
             rRec = "Oferta 2";
             totalO2 ++;
+        }
+        else {
+            rRec = "Egale";
         }
 
         String[][] data = {
@@ -194,15 +206,16 @@ public class Comparator {
                 {rDist, rPret, rRed, rRec}
         };
 
-        System.out.printf("%-5s %-10s %-5s%n", headers[0], headers[1], headers[2], headers[3]);
+        System.out.printf("%-9s %-5s %-9s %-9s%n", headers[0], headers[1], headers[2], headers[3]);
 
         for (String[] row : data) {
-            System.out.printf("%-5s %-10s %-5s%n", row[0], row[1], row[2], row[3]);
+            System.out.printf("%-9s %-9s %-9s %-9s%n", row[0], row[1], row[2], row[3]);
         }
 
         if(totalO2 > totalO1)
             System.out.println("Oferta 2 este mai avantajoasa");
-        else System.out.println("Oferta 1 este mai avantajoasa");
+        else if(totalO2 < totalO1) System.out.println("Oferta 1 este mai avantajoasa");
+        else System.out.println("Ambele oferte sunt avantajoase");
     }
 
     private List<Oferta> extrageToateOfertele() {

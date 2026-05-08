@@ -14,7 +14,7 @@ public class OfertaCombo extends Oferta{
 
     // getters si setters
     public float getPretCombo() {
-        return pretCombo;
+        return this.pretCombo;
     }
 
     public void setPretCombo(float pretCombo) {
