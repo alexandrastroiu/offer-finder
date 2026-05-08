@@ -276,6 +276,19 @@ public class Comparator {
         }
         return null;
     }
+
+    public Restaurant getRestaurantById(int id) {
+        if (this.restaurante == null) {
+            return null;
+        }
+
+        for (Restaurant r : this.restaurante) {
+            if (r.getId() == id){
+                return r;
+            }
+        }
+        return null;
+    }
 }
 
 
