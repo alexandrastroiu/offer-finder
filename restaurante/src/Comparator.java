@@ -226,6 +226,42 @@ public class Comparator {
         }
         return toateOfertele;
     }
+
+    public Restaurant getRestaurantByOfertaId(int id) {
+        if (this.restaurante == null) {
+            return null;
+        }
+
+        for (Restaurant r : this.restaurante) {
+            if (r.getOferteValide() != null){
+                for (Oferta o : r.getOferteValide()) {
+                    if (o.getId() == id) {
+                        return r;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public Restaurant getRestaurantByProdusId(int id) {
+        if (this.restaurante == null) {
+            return null;
+        }
+
+        for (Restaurant r : this.restaurante) {
+            Meniu meniu = r.getMeniu();
+            
+            if (meniu != null && meniu.getProduse() != null){
+                for (Produs p : meniu.getProduse()) {
+                    if (p.getId() == id) {
+                        return r;
+                    }
+                }
+            }
+        }
+        return null;
+    }
 }
 
 

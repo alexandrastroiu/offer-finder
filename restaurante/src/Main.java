@@ -255,9 +255,9 @@ public class Main {
 
         comparator.setRestaurante(restaurante);
 
-        System.out.println("---------------------------------------------------------------");
-        System.out.println("                 Comparator Oferte Restaurante                 ");
-        System.out.println("---------------------------------------------------------------\n");
+        System.out.println("-----------------------------------------------------------------");
+        System.out.println("                  Comparator Oferte Restaurante                  ");
+        System.out.println("-----------------------------------------------------------------\n");
         System.out.println("\nIntroduceti datele pentru autentificare: ");
         System.out.print("Nume utilizator: ");
         String numeUtilizator = scanner.nextLine();
@@ -304,8 +304,12 @@ public class Main {
                             System.out.println("Restaurantul nu a fost gasit.");
                         } else {
                             System.out.println("Restaurant gasit:");
+
                             for (Restaurant r : rezultat) {
                                 System.out.println(r.getDenumire());
+                                System.out.println("Distanta fata de Politehnica: " + r.getDistanta() + " km");
+                                System.out.println("Nota: " + r.getNotaMedie() + "/5");
+                                System.out.println("Program: " + r.getOraDeschidere() + " AM" + " - " + r.getOraInchidere() + " PM");
                             }
                         }
                         break; 
@@ -320,8 +324,15 @@ public class Main {
                         if (rezultat.isEmpty()) {
                             System.out.println("Produsul nu a fost gasit.");
                         } else {
+
                             for (Produs p : rezultat) {
-                                System.out.println(p.getDenumire() + " - " + p.getPret() + " lei");
+                                System.out.print(p.getDenumire() + " - " + p.getPret() + " lei");
+
+                                Restaurant restaurantProdus = client.getComparator().getRestaurantByProdusId(p.getId());
+
+                                if (restaurantProdus != null) {
+                                    System.out.println(" - " + restaurantProdus.getDenumire());
+                                }
                             }
                         }
                         break;
@@ -352,7 +363,11 @@ public class Main {
                         Oferta o2 = client.getComparator().selecteazaOferta(IDOferta2);
 
                         if (o1 != null && o2 != null) {
+                            System.out.println("Comparare oferte:\n");
                             client.getComparator().comparaOferte(restaurant1.get(0), o1, restaurant2.get(0), o2);
+                        }
+                        else {
+                            System.out.println("Ofertele nu pot fi comparate.");
                         }
                       }
 
@@ -360,12 +375,12 @@ public class Main {
                     }
 
                     case 4:{
-                        System.out.println("\n--------------------Optiuni Filtrare:------------------------");
-                        System.out.println("                    - pret                                     ");
-                        System.out.println("                    - distanta                                 ");
-                        System.out.println("                    - procent reducere                         ");
-                        System.out.println("                    - recenzii                                 ");
-                        System.out.println("-------------------------------------------------------------\n");
+                        System.out.println("\n--------------------Optiuni Filtrare:---------------------------");
+                        System.out.println("                      - pret                                      ");
+                        System.out.println("                      - distanta                                  ");
+                        System.out.println("                      - procent reducere                          ");
+                        System.out.println("                      - recenzii                                  ");
+                        System.out.println("-----------------------------------------------------------------\n");
 
                         System.out.print("Introduceti criteriul de filtrare: ");
                         String criteriu = scanner.nextLine();
@@ -384,10 +399,16 @@ public class Main {
                                     System.out.println("Ofertele gasite cu un pret maxim " + pretMax + " :");
                                     for (Oferta o : rezultat) {
                                         if (o instanceof OfertaMeniu) {
-                                            System.out.println(o.getDenumire() + " - " + client.getComparator().reducereToString(o) + " %");
+                                            System.out.print(o.getDenumire() + " - " + client.getComparator().reducereToString(o) + " %");
                                         }
                                         else {
-                                            System.out.println(o.getDenumire() + " - " + client.getComparator().priceToString(o) + "lei");
+                                            System.out.print(o.getDenumire() + " - " + client.getComparator().priceToString(o) + "lei");
+                                        }
+
+                                        Restaurant restaurantOferta = client.getComparator().getRestaurantByOfertaId(o.getId());
+
+                                        if (restaurantOferta != null) {
+                                            System.out.println(" - " + restaurantOferta.getDenumire());
                                         }
                                      }
                                 }
@@ -426,7 +447,13 @@ public class Main {
                                 } else {
                                     System.out.println("Ofertele gasite cu un procent de reducere de minim " + pragMin + " %:");
                                     for (Oferta o : rezultat) {
-                                        System.out.println(o.getDenumire() + " - " + client.getComparator().reducereToString(o) + " % ");
+                                        System.out.print(o.getDenumire() + " - " + client.getComparator().reducereToString(o) + " % ");
+
+                                        Restaurant restaurantOferta = client.getComparator().getRestaurantByOfertaId(o.getId());
+
+                                        if (restaurantOferta != null) {
+                                            System.out.println(" - " + restaurantOferta.getDenumire());
+                                        }
                                     }
                                 }
 
@@ -490,7 +517,6 @@ public class Main {
                 int optiune = scanner.nextInt();
                 scanner.nextLine();
 
-                //TODO
                 switch (optiune) {
                     case 1:{
                         manager.adaugareOferta();
