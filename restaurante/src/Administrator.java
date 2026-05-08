@@ -82,7 +82,7 @@ public class Administrator extends Utilizator{
 
         System.out.println("\nRestaurante disponibile: ");
         for (Restaurant r : restaurante) {
-            System.out.println("Restaurant: " + r.getDenumire() + " | Nota medie: " + r.getNotaMedie());
+            System.out.println("Restaurant " + r.getId() +  " : " + r.getDenumire() + " | Nota medie: " + r.getNotaMedie());
         }
 
         System.out.println("\nTop 10 restaurante dupa nota:");
