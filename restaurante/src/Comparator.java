@@ -60,15 +60,29 @@ public class Comparator {
                     if (o instanceof OfertaMeniu)
                     {
                         OfertaMeniu ofertaMeniu = (OfertaMeniu) o;
-                        int size = ofertaMeniu.getMeniu().getProduse().size();
-                        for(int i = 0; i < size; i ++) {
-                            if(ofertaMeniu.getMeniu().getProduse().get(i).getPret() <= pretMax) return true;
-                            else return false;
+                        
+                        if (ofertaMeniu.getMeniu() == null || ofertaMeniu.getMeniu().getProduse() == null) {
+                            return false;
                         }
+
+                        for (Produs p : ofertaMeniu.getMeniu().getProduse()) {
+                            if (p.getPret() <= pretMax) {
+                                return true;
+                            }
+                        }
+
+                        return false;
                     }
-                    if (o instanceof OfertaProdus) return ((OfertaProdus) o).getPretRedus() <= pretMax;
-                    if (o instanceof OfertaCombo) return ((OfertaCombo) o).getPretCombo() <= pretMax;
-                    return true;
+                    
+                    if (o instanceof OfertaProdus) {
+                        return ((OfertaProdus) o).getPretRedus() <= pretMax;
+                    }
+
+                    if (o instanceof OfertaCombo) {
+                        return ((OfertaCombo) o).getPretCombo() <= pretMax;
+                    }
+
+                    return false;
                 })
                 .collect(Collectors.toList());
     }
