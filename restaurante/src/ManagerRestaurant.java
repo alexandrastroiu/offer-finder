@@ -68,6 +68,7 @@ public class ManagerRestaurant extends Utilizator
             case 1:
                 System.out.println("Ce procentaj de reducere doriti?");
                 int procentaj = scanner.nextInt();
+                scanner.nextLine();
                 System.out.println("Ce denumire doriti sa aiba oferta?");
                 String denumire = scanner.nextLine();
                 OfertaMeniu ofertaMeniu = new OfertaMeniu(this.restaurant.getOferteValide().size(), denumire, procentaj, restaurant.getMeniu());
@@ -77,9 +78,11 @@ public class ManagerRestaurant extends Utilizator
             case 2:
                 System.out.println("Ce procentaj de reducere doriti?");
                 int reducere = scanner.nextInt();
+                scanner.nextLine();
                 System.out.println("Carui produs doriti sa ii atribuiti reducerea? (Introduceti numarul corespunzator)");
                 this.restaurant.getMeniu().afisareMeniu();
                 int idProd = scanner.nextInt() - 1;
+                scanner.nextLine();
                 System.out.println("Ce denumire doriti sa aiba oferta?");
                 String numeOfertaProdus = scanner.nextLine();
                 OfertaProdus ofertaProdus = new OfertaProdus(this.restaurant.getOferteValide().size(), numeOfertaProdus, reducere);
@@ -90,11 +93,13 @@ public class ManagerRestaurant extends Utilizator
             case 3:
                 System.out.println("Ce pret doriti sa aiba oferta de tip combo?");
                 float pret = scanner.nextFloat();
+                scanner.nextLine();
                 System.out.println("Ce denumire doriti sa aiba oferta?");
                 String numeOfertaCombo = scanner.nextLine();
                 OfertaCombo ofertaCombo = new OfertaCombo(this.restaurant.getOferteValide().size(), numeOfertaCombo, pret);
                 System.out.println("Cate produse doriti sa aiba oferta de tip combo?");
                 int nrProd = scanner.nextInt();
+                scanner.nextLine();
                 System.out.println("Adaugati produsele: ");
                 this.restaurant.getMeniu().afisareMeniu();
                 for(int i = 0; i < nrProd; i ++) {

@@ -129,7 +129,7 @@ public class Restaurant {
                 System.out.println("Pret combo: " + ofertaCombo.getPretCombo());
                 System.out.println("Produse participante: ");
                 for (int j = 0; j < ofertaCombo.getProduseParticipante().size(); j++) {
-                    System.out.println((i + 1) + ". " + ofertaCombo.getProduseParticipante().get(j).getDenumire());
+                    System.out.println((j + 1) + ". " + ofertaCombo.getProduseParticipante().get(j).getDenumire());
                 }
             }
             System.out.println("....................................................................................");
