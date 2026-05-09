@@ -114,7 +114,7 @@ public class Main {
 
         Restaurant r9 = new Restaurant(
                 9,
-                "clase.Restaurant Vanity",
+                "Restaurant Vanity",
                 "Splaiul Independentei 315",
                 1.4f,
                 11.0f,
@@ -212,42 +212,42 @@ public class Main {
         r2.setOferteValide(creeazaListaOferte(
                 new OfertaCombo(2, "Combo Pizza", 52),
                 new OfertaCombo(3, "Combo Pizza + Paste", 60),
-                new OfertaMeniu(4, "Reducere clase.Meniu", 10, r2.getMeniu())
+                new OfertaMeniu(4, "Reducere Meniu", 10, r2.getMeniu())
         ));
         r3.setOferteValide(creeazaListaOferte(
                 new OfertaCombo(5, "Combo Noodles", 44),
-                new OfertaMeniu(6, "Reducere clase.Meniu", 5, r3.getMeniu())
+                new OfertaMeniu(6, "Reducere Meniu", 5, r3.getMeniu())
         ));
         r4.setOferteValide(creeazaListaOferte(
                 new OfertaCombo(7, "Combo Burger + Cartofi", 45)
         ));
         r5.setOferteValide(creeazaListaOferte(
-                new OfertaMeniu(8, "Reducere clase.Meniu", 7, r5.getMeniu())
+                new OfertaMeniu(8, "Reducere Meniu", 7, r5.getMeniu())
         ));
         r6.setOferteValide(creeazaListaOferte(
                 new OfertaCombo(9, "Combo Burger + Cartofi", 39),
-                new OfertaMeniu(10, "Reducere clase.Meniu", 12, r6.getMeniu())
+                new OfertaMeniu(10, "Reducere Meniu", 12, r6.getMeniu())
         ));
         r7.setOferteValide(creeazaListaOferte(
                 new OfertaCombo(11, "Combo Burger + Cartofi", 45)
         ));
         r8.setOferteValide(creeazaListaOferte(
-                new OfertaMeniu(12, "Reducere clase.Meniu", 2, r8.getMeniu())
+                new OfertaMeniu(12, "Reducere Meniu", 2, r8.getMeniu())
         ));
         r9.setOferteValide(creeazaListaOferte(
-                new OfertaMeniu(13, "Reducere clase.Meniu", 5, r9.getMeniu())
+                new OfertaMeniu(13, "Reducere Meniu", 5, r9.getMeniu())
         ));
         r10.setOferteValide(creeazaListaOferte(
-                new OfertaMeniu(14, "Reducere clase.Meniu", 2, r10.getMeniu())
+                new OfertaMeniu(14, "Reducere Meniu", 2, r10.getMeniu())
         ));
 
-        OfertaProdus ofertaProdus1 =  new OfertaProdus(16, "clase.Oferta Capuccino", 10);
+        OfertaProdus ofertaProdus1 =  new OfertaProdus(16, "Oferta Capuccino", 10);
         Produs produsOferta1 = r11.getProdusById(31);
         if ( produsOferta1 != null){
             ofertaProdus1.setProdus(produsOferta1);
         }
 
-        OfertaProdus ofertaProdus2 = new OfertaProdus(17, "clase.Oferta Latte", 7);
+        OfertaProdus ofertaProdus2 = new OfertaProdus(17, "Oferta Latte", 7);
         Produs produsOferta2 = r11.getProdusById(32);
         if (produsOferta2 != null) {
             ofertaProdus2.setProdus(produsOferta2);
@@ -274,7 +274,7 @@ public class Main {
         comparator.setRestaurante(restaurante);
 
         System.out.println("-----------------------------------------------------------------");
-        System.out.println("                  clase.Comparator Oferte Restaurante                  ");
+        System.out.println("                  Comparator Oferte Restaurante                  ");
         System.out.println("-----------------------------------------------------------------\n");
         System.out.println("\nIntroduceti datele pentru autentificare: ");
         System.out.print("Nume utilizator: ");
@@ -283,7 +283,7 @@ public class Main {
         String parola = scanner.nextLine();
 
         // Login
-        boolean esteAutentificat = utilizator.autentificare(numeUtilizator, parola, "./../../restaurante/data/utilizatori.csv");
+        boolean esteAutentificat = utilizator.autentificare(numeUtilizator, parola, "./restaurante/data/utilizatori.csv");
 
         if (esteAutentificat) {
             System.out.println("\nAutentificare reusita!\n");
@@ -321,7 +321,7 @@ public class Main {
                             if (rezultat.isEmpty()) {
                                 System.out.println("Restaurantul nu a fost gasit.");
                             } else {
-                                System.out.println("clase.Restaurant gasit:");
+                                System.out.println("Restaurant gasit:");
 
                                 for (Restaurant r : rezultat) {
                                     System.out.println(r.getDenumire());
@@ -358,9 +358,9 @@ public class Main {
 
                         case 3:{
                             System.out.println("\nIntroduceti numele a doua restaurante: ");
-                            System.out.print("clase.Restaurant 1: ");
+                            System.out.print("Restaurant 1: ");
                             String numeRestaurant1 = scanner.nextLine();
-                            System.out.print("clase.Restaurant 2: ");
+                            System.out.print("Restaurant 2: ");
                             String numeRestaurant2 = scanner.nextLine();
 
                             List<Restaurant> restaurant1 = client.getComparator().cautaRestaurant(numeRestaurant1);
@@ -371,10 +371,10 @@ public class Main {
                             }
                             else {
                                 System.out.println("\nIntroduceti ID-ul a doua oferte: ");
-                                System.out.print("clase.Oferta 1: ");
+                                System.out.print("Oferta 1: ");
                                 int IDOferta1 = scanner.nextInt();
                                 scanner.nextLine();
-                                System.out.print("clase.Oferta 2: ");
+                                System.out.print("Oferta 2: ");
                                 int IDOferta2 = scanner.nextInt();
                                 scanner.nextLine();
                                 Oferta o1 = client.getComparator().selecteazaOferta(IDOferta1);
@@ -518,7 +518,7 @@ public class Main {
                 }
             }
             else if (utilizator.getRol().equalsIgnoreCase("manager")) {
-                String numeRestaurant = utilizator.extragereRestaurant(numeUtilizator, parola, "./../../restaurante/data/utilizatori.csv");
+                String numeRestaurant = utilizator.extragereRestaurant(numeUtilizator, parola, "./restaurante/data/utilizatori.csv");
                 Restaurant r = comparator.getRestaurante().stream().filter(restaurant -> restaurant.getDenumire().equals(numeRestaurant)).collect(Collectors.toList()).getFirst();
                 int IdRestaurant = r.getId();
                 ManagerRestaurant manager = new ManagerRestaurant();

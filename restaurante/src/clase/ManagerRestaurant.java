@@ -61,7 +61,7 @@ public class ManagerRestaurant extends Utilizator
         System.out.println("Introduceti o optiune (1, 2 sau 3)");
         System.out.println("1. Reducere pentru tot meniul");
         System.out.println("2. Reducere pentru un produs anume");
-        System.out.println("3. clase.Oferta combo");
+        System.out.println("3. Oferta combo");
         int optiune = scanner.nextInt();
         List<Restaurant> restauranteTemp = this.comparator.getRestaurante();
         switch (optiune) {
@@ -125,7 +125,7 @@ public class ManagerRestaurant extends Utilizator
         String nume = scanner.nextLine();
         if(this.restaurant.getOferteValide().stream().filter(oferta -> (oferta.getDenumire().equals(nume))).findAny().orElse(null) != null) {
             this.restaurant.eleminareOfertaNume(nume);
-            System.out.println("clase.Oferta " + nume + " nu mai este valida");
+            System.out.println("Oferta " + nume + " nu mai este valida");
         }
         else {
             System.out.println("Nu exista aceasta oferta. Reluati procesul");
@@ -199,7 +199,7 @@ public class ManagerRestaurant extends Utilizator
                 this.restaurant.eleminareOfertaNume(o.getDenumire());
                 this.restaurant.adaugareOferta(ofertaMeniu);
             }
-            System.out.println("clase.Oferta " + nume + " a fost actualizata");
+            System.out.println("Oferta " + nume + " a fost actualizata");
         }
         else {
             System.out.println("Nu exista aceasta oferta. Reluati procesul");

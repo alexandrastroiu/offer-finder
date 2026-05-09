@@ -164,11 +164,11 @@ public class Comparator {
 
         String rDist;
         if(r1.getDistanta() > r2.getDistanta()) {
-            rDist = "clase.Oferta 2";
+            rDist = "Oferta 2";
             totalO2 ++;
         }
         else if(r1.getDistanta() < r2.getDistanta()){
-            rDist = "clase.Oferta 1";
+            rDist = "Oferta 1";
             totalO1 ++;
         }
         else {
@@ -178,11 +178,11 @@ public class Comparator {
         String rPret;
         if(getPretDinOferta(o1) < 0 || getPretDinOferta(o2) < 0) rPret = "-";
         else if (getPretDinOferta(o1) < getPretDinOferta(o2)) {
-            rPret = "clase.Oferta 1";
+            rPret = "Oferta 1";
             totalO1 ++;
         }
         else if (getPretDinOferta(o1) > getPretDinOferta(o2))  {
-            rPret = "clase.Oferta 2";
+            rPret = "Oferta 2";
             totalO2 ++;
         }
         else {
@@ -192,11 +192,11 @@ public class Comparator {
         String rRed;
         if(getReducereDinOferta(o1) < 0 || getReducereDinOferta(o2) < 0) rRed = "-";
         else if (getReducereDinOferta(o1) < getReducereDinOferta(o2)) {
-            rRed = "clase.Oferta 1";
+            rRed = "Oferta 1";
             totalO1 ++;
         }
         else if (getReducereDinOferta(o1) > getReducereDinOferta(o2)){
-            rRed = "clase.Oferta 2";
+            rRed = "Oferta 2";
             totalO2 ++;
         }
         else {
@@ -205,11 +205,11 @@ public class Comparator {
 
         String rRec;
         if(r1.getNotaMedie() > r2.getNotaMedie()) {
-            rRec = "clase.Oferta 1";
+            rRec = "Oferta 1";
             totalO1 ++;
         }
         else if(r1.getNotaMedie() < r2.getNotaMedie()) {
-            rRec = "clase.Oferta 2";
+            rRec = "Oferta 2";
             totalO2 ++;
         }
         else {
@@ -229,8 +229,8 @@ public class Comparator {
         }
 
         if(totalO2 > totalO1)
-            System.out.println("clase.Oferta 2 este mai avantajoasa");
-        else if(totalO2 < totalO1) System.out.println("clase.Oferta 1 este mai avantajoasa");
+            System.out.println("Oferta 2 este mai avantajoasa");
+        else if(totalO2 < totalO1) System.out.println("Oferta 1 este mai avantajoasa");
         else System.out.println("Ambele oferte sunt avantajoase");
     }
 

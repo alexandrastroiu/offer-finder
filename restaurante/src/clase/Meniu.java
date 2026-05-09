@@ -54,7 +54,7 @@ public class Meniu {
 
     // afiseaza meniu
     public void afisareMeniu() {
-        System.out.println("clase.Meniu: ");
+        System.out.println("Meniu: ");
         for(int i = 0; i < this.produse.size(); i ++) {
             System.out.println((i + 1) + ". " + this.produse.get(i).getDenumire() + "..........................." + this.produse.get(i).getPret());
         }
