@@ -1,3 +1,5 @@
+package clase;
+
 public class Oferta {
     private int id;
     private String denumire;

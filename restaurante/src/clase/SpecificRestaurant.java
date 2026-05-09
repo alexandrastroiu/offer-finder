@@ -1,3 +1,5 @@
+package clase;
+
 public enum SpecificRestaurant {
     FastFood,
     Patiserie,

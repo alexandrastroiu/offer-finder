@@ -1,8 +1,7 @@
-import java.util.ArrayList;
-import java.util.List;
+package clase;
 
-// Relatie de generalizare intre clasele Client si Utilizator (mostenire)
-public class Client extends Utilizator{
+// Relatie de generalizare intre clasele clase.Client si clase.Utilizator (mostenire)
+public class Client extends Utilizator {
     // Relatie de asociatie intre clasele comparator si client
     private Comparator comparator;
 
@@ -18,7 +17,7 @@ public class Client extends Utilizator{
 
     // Metode
 
-    // Creeaza legatura cu un obiect de tip Comparator (asociatie)
+    // Creeaza legatura cu un obiect de tip clase.Comparator (asociatie)
     public void asignareComparator(Comparator comparator) {
         this.comparator = comparator;
     }
@@ -29,9 +28,9 @@ public class Client extends Utilizator{
     }
 
     public void afiseazaDateClient() {
-        System.out.println("\nDate Client: ");
-        System.out.println("Nume Utilizator Client: " + getNumeUtilizator());
-        System.out.println("ID Client: " + getId());
+        System.out.println("\nDate clase.Client: ");
+        System.out.println("Nume clase.Utilizator clase.Client: " + getNumeUtilizator());
+        System.out.println("ID clase.Client: " + getId());
         System.out.println("Email: " + getEmail());
         System.out.println("Rol: " + getRol());
     }

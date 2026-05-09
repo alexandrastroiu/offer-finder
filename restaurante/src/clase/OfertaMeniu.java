@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+package clase;
+
 public class OfertaMeniu extends Oferta {
     private int reducere;
     private Meniu meniu;

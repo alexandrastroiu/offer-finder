@@ -1,3 +1,5 @@
+package clase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,7 @@ public class Meniu {
 
     // afiseaza meniu
     public void afisareMeniu() {
-        System.out.println("Meniu: ");
+        System.out.println("clase.Meniu: ");
         for(int i = 0; i < this.produse.size(); i ++) {
             System.out.println((i + 1) + ". " + this.produse.get(i).getDenumire() + "..........................." + this.produse.get(i).getPret());
         }

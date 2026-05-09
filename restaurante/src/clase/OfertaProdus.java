@@ -1,3 +1,5 @@
+package clase;
+
 public class OfertaProdus extends Oferta {
     private int reducere;
     private Produs produs;

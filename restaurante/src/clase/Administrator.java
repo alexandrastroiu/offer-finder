@@ -1,8 +1,10 @@
+package clase;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-// Relatie de generalizare intre clasele Administrator si Utilizator (mostenire)
-public class Administrator extends Utilizator{
+// Relatie de generalizare intre clasele clase.Administrator si clase.Utilizator (mostenire)
+public class Administrator extends Utilizator {
     // Relatie de asociatie intre clasele administrator si comparator
     private Comparator comparator;
 
@@ -82,7 +84,7 @@ public class Administrator extends Utilizator{
 
         System.out.println("\nRestaurante disponibile: ");
         for (Restaurant r : restaurante) {
-            System.out.println("Restaurant " + r.getId() +  " : " + r.getDenumire() + " | Nota medie: " + r.getNotaMedie());
+            System.out.println("clase.Restaurant " + r.getId() +  " : " + r.getDenumire() + " | Nota medie: " + r.getNotaMedie());
         }
 
         System.out.println("\nTop 10 restaurante dupa nota:");

@@ -1,6 +1,8 @@
+package clase;
+
 import java.util.ArrayList;
 import java.util.List;
-public class OfertaCombo extends Oferta{
+public class OfertaCombo extends Oferta {
     private float pretCombo;
     private List<Produs> produseParticipante;
 

@@ -1,3 +1,5 @@
+package clase;
+
 public class Produs {
 
     private int id;
