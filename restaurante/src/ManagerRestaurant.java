@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import java.util.Scanner;
@@ -126,6 +127,80 @@ public class ManagerRestaurant extends Utilizator
         if(this.restaurant.getOferteValide().stream().filter(oferta -> (oferta.getDenumire().equals(nume))).findAny().orElse(null) != null) {
             this.restaurant.eleminareOfertaNume(nume);
             System.out.println("Oferta " + nume + " nu mai este valida");
+        }
+        else {
+            System.out.println("Nu exista aceasta oferta. Reluati procesul");
+        }
+    }
+
+    // actualizare oferta
+    public void actualizareOferta() {
+        Scanner scanner = new Scanner(System.in);
+        this.restaurant.afisareOferte();
+        System.out.println("Introduceti denumirea ofertei pe care doriti sa o actualizati");
+        String nume = scanner.nextLine();
+
+        Optional<Oferta> found = this.restaurant.getOferteValide().stream()
+                .filter(oferta -> oferta.getDenumire().equalsIgnoreCase(nume))
+                .findFirst();
+
+        if(found.isPresent()) {
+            Oferta o = found.get();
+            int ID = o.getId();
+            if(o instanceof OfertaProdus) {
+                System.out.println("Puteti modifica procentajul de reducere pentru oferta de tip produs");
+                System.out.println("Ce procentaj de reducere doriti?");
+                int procentaj = scanner.nextInt();
+                scanner.nextLine();
+                OfertaProdus ofertaProdus = new OfertaProdus(ID, o.getDenumire(), procentaj);
+                ofertaProdus.setProdus(((OfertaProdus) o).getProdus());
+                this.restaurant.eleminareOfertaNume(o.getDenumire());
+                this.restaurant.adaugareOferta(ofertaProdus);
+            }
+            else if(o instanceof OfertaCombo) {
+                System.out.println("Puteti modifica pretul si produsele participante pentru oferta de tip combo");
+                System.out.println("Introduceti o optiune (1, 2 sau 3)");
+                System.out.println("1. Modificare pret");
+                System.out.println("2. Modificare lista de produse");
+                int optiune = scanner.nextInt();
+                scanner.nextLine();
+                if(optiune == 1) {
+                    System.out.println("Ce pret doriti sa aiba oferta de tip combo?");
+                    float pret = scanner.nextFloat();
+                    OfertaCombo ofertaCombo = new OfertaCombo(ID, o.getDenumire(), ((OfertaCombo) o).getPretCombo());
+                    ofertaCombo.setProduseParticipante(((OfertaCombo) o).getProduseParticipante());
+                    this.restaurant.eleminareOfertaNume(o.getDenumire());
+                    this.restaurant.adaugareOferta(ofertaCombo);
+                }
+                else if(optiune == 2) {
+                    System.out.println("Cate produse doriti sa aiba oferta de tip combo?");
+                    int nrProd = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Adaugati produsele: ");
+                    this.restaurant.getMeniu().afisareMeniu();
+                    OfertaCombo ofertaCombo = new OfertaCombo(ID, o.getDenumire(), ((OfertaCombo) o).getPretCombo());
+                    for(int i = 0; i < nrProd; i ++) {
+                        System.out.println("Ce produs doriti sa adaugati in oferta de tip combo? (Introduceti numarul corespunzator)");
+                        int idP = scanner.nextInt() - 1;
+                        ofertaCombo.adaugareProdus(this.restaurant.getMeniu().getProduse().get(idP));
+                    }
+                    this.restaurant.eleminareOfertaNume(o.getDenumire());
+                    this.restaurant.adaugareOferta(ofertaCombo);
+                }
+                else {
+                    System.out.println("Nu exista aceasta oferta. Reluati procesul");
+                }
+            }
+            else if(o instanceof OfertaMeniu) {
+                System.out.println("Puteti modifica procentajul de reducere pentru oferta de tip meniu");
+                System.out.println("Ce procentaj de reducere doriti?");
+                int procentaj = scanner.nextInt();
+                scanner.nextLine();
+                OfertaMeniu ofertaMeniu = new OfertaMeniu(ID, o.getDenumire(), procentaj, restaurant.getMeniu());
+                this.restaurant.eleminareOfertaNume(o.getDenumire());
+                this.restaurant.adaugareOferta(ofertaMeniu);
+            }
+            System.out.println("Oferta " + nume + " a fost actualizata");
         }
         else {
             System.out.println("Nu exista aceasta oferta. Reluati procesul");

@@ -536,10 +536,11 @@ public class Main {
                     System.out.println("\n--------------------Optiuni Disponibile:------------------------");
                     System.out.println("                     1. Adauga oferta                             ");
                     System.out.println("                     2. Elimina oferta                            ");
-                    System.out.println("                     3. Actualizeaza program                      ");
-                    System.out.println("                     4. Actualizeaza pret                         ");
-                    System.out.println("                     5. Modifica meniu                            ");
-                    System.out.println("                     6. Deconectare                               ");
+                    System.out.println("                     3. Actualizeaza oferta                            ");
+                    System.out.println("                     4. Actualizeaza program                      ");
+                    System.out.println("                     5. Actualizeaza pret                         ");
+                    System.out.println("                     6. Modifica meniu                            ");
+                    System.out.println("                     7. Deconectare                               ");
                     System.out.println("-----------------------------------------------------------------\n");
 
                     System.out.print("\nAlegeti o optiune: ");
@@ -558,21 +559,26 @@ public class Main {
                         }
 
                         case 3:{
-                            manager.actualizeazaProgram();
+                            manager.actualizareOferta();
                             break;
                         }
 
                         case 4:{
-                            manager.actualizeazaPret();
+                            manager.actualizeazaProgram();
                             break;
                         }
 
                         case 5:{
-                            manager.modificaMeniu();
+                            manager.actualizeazaPret();
                             break;
                         }
 
                         case 6:{
+                            manager.modificaMeniu();
+                            break;
+                        }
+
+                        case 7:{
                             continuaProgram = false;
                             break;
                         }
