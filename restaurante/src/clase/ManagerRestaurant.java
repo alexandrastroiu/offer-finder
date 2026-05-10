@@ -69,6 +69,10 @@ public class ManagerRestaurant extends Utilizator
                 System.out.println("Ce procentaj de reducere doriti?");
                 int procentaj = scanner.nextInt();
                 scanner.nextLine();
+                if(procentaj < 0 || procentaj > 100) {
+                    System.out.println("Valoare imposibila. Reincercati");
+                    return;
+                }
                 System.out.println("Ce denumire doriti sa aiba oferta?");
                 String denumire = scanner.nextLine();
                 OfertaMeniu ofertaMeniu = new OfertaMeniu(this.restaurant.getOferteValide().size(), denumire, procentaj, restaurant.getMeniu());
@@ -79,6 +83,10 @@ public class ManagerRestaurant extends Utilizator
                 System.out.println("Ce procentaj de reducere doriti?");
                 int reducere = scanner.nextInt();
                 scanner.nextLine();
+                if(reducere < 0 || reducere > 100) {
+                    System.out.println("Valoare imposibila. Reincercati");
+                    return;
+                }
                 System.out.println("Carui produs doriti sa ii atribuiti reducerea? (Introduceti numarul corespunzator)");
                 this.restaurant.getMeniu().afisareMeniu();
                 int idProd = scanner.nextInt() - 1;
@@ -94,6 +102,10 @@ public class ManagerRestaurant extends Utilizator
                 System.out.println("Ce pret doriti sa aiba oferta de tip combo?");
                 float pret = scanner.nextFloat();
                 scanner.nextLine();
+                if(pret < 0) {
+                    System.out.println("Valoare imposibila. Reincercati");
+                    return;
+                }
                 System.out.println("Ce denumire doriti sa aiba oferta?");
                 String numeOfertaCombo = scanner.nextLine();
                 OfertaCombo ofertaCombo = new OfertaCombo(this.restaurant.getOferteValide().size(), numeOfertaCombo, pret);
@@ -151,6 +163,10 @@ public class ManagerRestaurant extends Utilizator
                 System.out.println("Ce procentaj de reducere doriti?");
                 int procentaj = scanner.nextInt();
                 scanner.nextLine();
+                if(procentaj < 0 || procentaj > 100) {
+                    System.out.println("Valoare imposibila. Reincercati");
+                    return;
+                }
                 OfertaProdus ofertaProdus = new OfertaProdus(ID, o.getDenumire(), procentaj);
                 ofertaProdus.setProdus(((OfertaProdus) o).getProdus());
                 this.restaurant.eleminareOfertaNume(o.getDenumire());
@@ -166,7 +182,12 @@ public class ManagerRestaurant extends Utilizator
                 if(optiune == 1) {
                     System.out.println("Ce pret doriti sa aiba oferta de tip combo?");
                     float pret = scanner.nextFloat();
-                    OfertaCombo ofertaCombo = new OfertaCombo(ID, o.getDenumire(), ((OfertaCombo) o).getPretCombo());
+                    scanner.nextLine();
+                    if(pret < 0) {
+                        System.out.println("Valoare imposibila. Reincercati");
+                        return;
+                    }
+                    OfertaCombo ofertaCombo = new OfertaCombo(ID, o.getDenumire(), pret);
                     ofertaCombo.setProduseParticipante(((OfertaCombo) o).getProduseParticipante());
                     this.restaurant.eleminareOfertaNume(o.getDenumire());
                     this.restaurant.adaugareOferta(ofertaCombo);
@@ -175,6 +196,10 @@ public class ManagerRestaurant extends Utilizator
                     System.out.println("Cate produse doriti sa aiba oferta de tip combo?");
                     int nrProd = scanner.nextInt();
                     scanner.nextLine();
+                    if(nrProd <= 0) {
+                        System.out.println("Valoare imposibila. Reincercati");
+                        return;
+                    }
                     System.out.println("Adaugati produsele: ");
                     this.restaurant.getMeniu().afisareMeniu();
                     OfertaCombo ofertaCombo = new OfertaCombo(ID, o.getDenumire(), ((OfertaCombo) o).getPretCombo());
@@ -195,6 +220,10 @@ public class ManagerRestaurant extends Utilizator
                 System.out.println("Ce procentaj de reducere doriti?");
                 int procentaj = scanner.nextInt();
                 scanner.nextLine();
+                if(procentaj < 0 || procentaj > 100) {
+                    System.out.println("Valoare imposibila. Reincercati");
+                    return;
+                }
                 OfertaMeniu ofertaMeniu = new OfertaMeniu(ID, o.getDenumire(), procentaj, restaurant.getMeniu());
                 this.restaurant.eleminareOfertaNume(o.getDenumire());
                 this.restaurant.adaugareOferta(ofertaMeniu);
@@ -243,6 +272,10 @@ public class ManagerRestaurant extends Utilizator
                            " pret vechi: " + this.restaurant.getMeniu().getProduse().get(nr).getPret());
         System.out.println("Introduceti noul pret: ");
         float pretNou = scanner.nextFloat();
+        if(pretNou < 0) {
+            System.out.println("Valoare imposibila. Reincercati");
+            return;
+        }
         this.restaurant.getMeniu().getProduse().get(nr).setPret(pretNou);
         System.out.println("Nume produs " + this.restaurant.getMeniu().getProduse().get(nr).getDenumire() +
                            " pret nou: " + this.restaurant.getMeniu().getProduse().get(nr).getPret());
@@ -262,6 +295,10 @@ public class ManagerRestaurant extends Utilizator
             String nume = scanner.nextLine();
             System.out.println("Introduceti pretul noului produs");
             float pret = scanner.nextFloat();
+            if(pret < 0) {
+                System.out.println("Valoare imposibila. Reincercati");
+                return;
+            }
             System.out.println("Introduceti caloriile noului produs");
             float calorii = scanner.nextFloat();
             System.out.println("Introduceti o scurta descriere a noului produs");

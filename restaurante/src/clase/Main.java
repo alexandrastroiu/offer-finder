@@ -677,7 +677,7 @@ public class Main {
     }
 
     // Metode helper
-    private static ArrayList<Produs> creeazaListaProduse(Produs... produse) {
+    public static ArrayList<Produs> creeazaListaProduse(Produs... produse) {
         ArrayList<Produs> listaProduse = new ArrayList<>();
 
         for (Produs p : produse) {

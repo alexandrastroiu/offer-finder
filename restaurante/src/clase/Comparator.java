@@ -291,6 +291,10 @@ public class Comparator {
         }
         return null;
     }
+
+    public void addRestaurant(Restaurant restaurant) {
+        this.restaurante.add(restaurant);
+    }
 }
 
 

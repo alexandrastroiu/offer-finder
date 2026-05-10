@@ -143,13 +143,13 @@ public class Restaurant {
     public void adaugareOferta(Oferta ofertaNoua) {
         if(ofertaNoua != null) {
             this.oferteValide.add(ofertaNoua);
-            if (ofertaNoua instanceof OfertaMeniu) {
-                OfertaMeniu ofertaMeniu = (OfertaMeniu) ofertaNoua;
-                for (int i = 0; i < this.meniu.getProduse().size(); i++) {
-                    float pretNou = this.meniu.getProduse().get(i).getPret() - (ofertaMeniu.getReducere() / 100.0f) * this.meniu.getProduse().get(i).getPret();
-                    this.meniu.getProduse().get(i).setPret(pretNou);
-                }
-            } else if (ofertaNoua instanceof OfertaProdus) {
+//            if (ofertaNoua instanceof OfertaMeniu) {
+//                OfertaMeniu ofertaMeniu = (OfertaMeniu) ofertaNoua;
+//                for (int i = 0; i < this.meniu.getProduse().size(); i++) {
+//                    float pretNou = this.meniu.getProduse().get(i).getPret() - (ofertaMeniu.getReducere() / 100.0f) * this.meniu.getProduse().get(i).getPret();
+//                    this.meniu.getProduse().get(i).setPret(pretNou);
+//                }
+            if (ofertaNoua instanceof OfertaProdus) {
                 OfertaProdus ofertaProdus = (OfertaProdus) ofertaNoua;
                 int i = this.meniu.getProduse().indexOf(ofertaProdus.getProdus());
                 float pretVechi = ofertaProdus.getProdus().getPret() - (ofertaProdus.getReducere() / 100.0f) * this.meniu.getProduse().get(i).getPret();
