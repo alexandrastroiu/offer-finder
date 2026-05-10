@@ -15,7 +15,6 @@ public class TestGestiuneRestaurant {
 
     @BeforeEach
     public void setUp() {
-        // Initializare mediu de test: asigura independenta testelor
         comparator = new Comparator();
         admin = new Administrator(1, "admin@restaurant.ro", "admin_system", "hash_parola", "administrator");
         admin.asignareComparator(comparator);
@@ -23,7 +22,6 @@ public class TestGestiuneRestaurant {
 
     @Test
     public void testAdaugareRestaurantSucces() {
-        // Punctul 10: Testare set de date favorabil
         Restaurant r = new Restaurant(101, "Hanu' lui Manuc", "Strada Franceza 62", 0.1f, 9.0f, 23.5f, 4.7f, SpecificRestaurant.Romanesc, 101);
 
         admin.adaugaRestaurant(r);
@@ -36,7 +34,6 @@ public class TestGestiuneRestaurant {
 
     @Test
     public void testAdaugareSuccesivaInBucla() {
-        // Punctul 10: Verificarea parcurgerii buclelor si seturi multiple de date
         int numarRestaurante = 5;
         for (int i = 1; i <= numarRestaurante; i++) {
             Restaurant r = new Restaurant(i, "Restaurant " + i, "Adresa " + i, (float) i, 10.0f, 22.0f, 4.0f, SpecificRestaurant.Romanesc, i);
@@ -48,7 +45,6 @@ public class TestGestiuneRestaurant {
 
     @Test
     public void testStergereRestaurantExistent() {
-        // Verificarea scenariului de eliminare
         Restaurant r1 = new Restaurant(10, "Caru' cu Bere", "Stavropoleos 5", 0.2f, 11, 24, 4.8f, SpecificRestaurant.Romanesc, 10);
         admin.adaugaRestaurant(r1);
 
@@ -60,7 +56,6 @@ public class TestGestiuneRestaurant {
 
     @Test
     public void testStergereRestaurantInexistent() {
-        // Punctul 10: Fortarea unei situatii de exceptie (ID invalid)
         boolean rezultat = admin.stergeRestaurant(999);
 
         assertFalse(rezultat, "Trebuie sa returneze false pentru un ID care nu exista in lista.");
@@ -68,7 +63,6 @@ public class TestGestiuneRestaurant {
 
     @Test
     public void testModificaRestaurantExistent() {
-        // Testare functionalitate complexa de actualizare
         Restaurant r1 = new Restaurant(1, "Nume Vechi", "Adresa", 1.0f, 10, 22, 4.0f, SpecificRestaurant.FastFood, 1);
         admin.adaugaRestaurant(r1);
 
@@ -82,7 +76,6 @@ public class TestGestiuneRestaurant {
 
     @Test
     public void testStergereInBuclaPanaLaListaVida() {
-        // Punctul 10: Parcurgerea buclelor pentru golirea listei
         admin.adaugaRestaurant(new Restaurant(1, "R1", "A1", 1, 10, 22, 4, SpecificRestaurant.FastFood, 1));
         admin.adaugaRestaurant(new Restaurant(2, "R2", "A2", 2, 10, 22, 5, SpecificRestaurant.FastFood, 2));
 
@@ -96,7 +89,6 @@ public class TestGestiuneRestaurant {
 
     @Test
     public void testLimitaInferioaraDate() {
-        // Punctul 10: Verificarea limitelor inferioare (valori zero)
         Restaurant rLimita = new Restaurant(0, "", "", 0.0f, 0.0f, 0.0f, 0.0f, SpecificRestaurant.FastFood, 0);
         admin.adaugaRestaurant(rLimita);
 
