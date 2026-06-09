@@ -283,7 +283,7 @@ public class Main {
         String parola = scanner.nextLine();
 
         // Login
-        boolean esteAutentificat = utilizator.autentificare(numeUtilizator, parola, "./restaurante/data/utilizatori.csv");
+        boolean esteAutentificat = utilizator.autentificare(numeUtilizator, parola, "data/utilizatori.csv");
 
         if (esteAutentificat) {
             System.out.println("\nAutentificare reusita!\n");
@@ -518,7 +518,7 @@ public class Main {
                 }
             }
             else if (utilizator.getRol().equalsIgnoreCase("manager")) {
-                String numeRestaurant = utilizator.extragereRestaurant(numeUtilizator, parola, "./restaurante/data/utilizatori.csv");
+                String numeRestaurant = utilizator.extragereRestaurant(numeUtilizator, parola, "data/utilizatori.csv");
                 Restaurant r = comparator.getRestaurante().stream().filter(restaurant -> restaurant.getDenumire().equals(numeRestaurant)).collect(Collectors.toList()).getFirst();
                 int IdRestaurant = r.getId();
                 ManagerRestaurant manager = new ManagerRestaurant();
